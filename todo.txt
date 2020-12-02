@@ -1,0 +1,7 @@
+have written 
+1. user model
+2. course schema( upon which udemyModel will build.)
+
+have to write 
+1. models for seminars, webinars, training etc.
+2. login and logout functionality for the rest API
