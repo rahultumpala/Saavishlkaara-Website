@@ -46,6 +46,10 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: [true, "A course must have a valid Price"],
     },
+    isActive: {
+        type: Boolean,
+        required: [true, "A course must be specified as active or not for enrolling"]
+    }
 });
 
 module.exports = courseSchema;
