@@ -135,3 +135,33 @@ exports.restrictTo = (...roles) => {
         next();
     };
 };
+
+
+exports.verifyToken = catchAsync(async (req, res, next) => {
+    try {
+      let token = req.body.token;
+      // 0) Check if the token is blacklisted
+      const blacklisted = await BlacklistedTokens.findOne({
+        token,
+      });
+      if (blacklisted) {
+        return next(
+          new AppError("You are not logged in! Please log in to get access.", 401)
+        );
+      }
+  
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  
+      // 2) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return next(new AppError("Details No Longer Valid", 404));
+      }
+    } catch (err) {
+      return next(new AppError("User Not Logged in", 401));
+    }
+    res.status(200).json({
+      status: "success",
+    });
+  });
