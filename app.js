@@ -11,7 +11,8 @@ const hpp = require("hpp");
 const cookieParser = require('cookie-parser');
 const nocache = require('nocache')
 // const authController = require("./controllers/authController.js");
-// const userRouter = require("./routes/userRoutes");
+const userRouter = require("./routes/userRoutes");
+const mailRouter = require("./routes/mailRoutes")
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.options("*", cors());
 
 //  ROUTES
 app.use("/api/v1/users/", userRouter);
+app.use("api/v1/mail",mailRouter);
 
 app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
