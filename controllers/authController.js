@@ -1,7 +1,7 @@
 const express = require('express')
-const UserModel = require("../models/users")
+const UserModel = require("../models/user-model")
 const jwt = require("jsonwebtoken");
-
+const catchAsync = require("../utils/catchAsync")
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.SECRET, {
