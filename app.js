@@ -52,7 +52,7 @@ app.use(hpp({ whitelist: [] }));
 app.use(
     cors({
         credentials: true,
-        origin: `http://localhost:3000`,
+        origin: `http://localhost:${process.env.PORT}`,
         preflightContinue: true,
     })
 );
@@ -62,7 +62,7 @@ app.options("*", cors());
 
 //  ROUTES
 app.use("/api/v1/users/", userRouter);
-app.use("api/v1/mail",mailRouter);
+app.use("/api/v1/mail/",mailRouter);
 
 app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

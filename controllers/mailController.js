@@ -12,7 +12,7 @@ exports.sendContactMail = catchAsync(async (req, res, next) => {
         subject,
         text,
     }
-    await sgMail.send(msg);
+    var resp = await sgMail.send(msg);
     res.status(200).json({ status: 'success' });
 });
 

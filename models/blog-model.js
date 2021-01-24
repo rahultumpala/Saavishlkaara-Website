@@ -27,7 +27,7 @@ const blogSchema = mongoose.Schema({
     },
     content: {
         type: String,
-        rqeuired: [true, "A blog post must have a valid content"]
+        required: [true, "A blog post must have a valid content"]
     },
     images: {
         type: [String],
