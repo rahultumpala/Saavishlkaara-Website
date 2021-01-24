@@ -22,7 +22,7 @@ html
         nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
             .container
                 img#logo-img.img-fluid.b-logo(src='/images/logo.png' alt='')
-                a.navbar-brand.d-flex.flex-row(href='/index.html')
+                a.navbar-brand.d-flex.flex-row(href='index.html')
                 img.img-fluid.b-logo(src='/images/logo-text-18.png' alt='')
                 button.navbar-toggler(type='button' data-toggle='collapse' data-target='#mainNav' aria-controls='mainNav' aria-expanded='false' aria-label='Toggle navigation')
                     span.navbar-toggler-icon
@@ -30,17 +30,17 @@ html
                 div#mainNav.collapse.navbar-collapse.justify-content-end
                     ul.navbar-nav
                         li.nav-item
-                        a.nav-link.dropdown-toggle(href='/index.html') Home
+                        a.nav-link.dropdown-toggle(href='index.html') Home
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/about.html') About
+                        a.nav-link.smoth-scroll(href='about.html') About
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/courses.html') Courses
+                        a.nav-link.smoth-scroll(href='courses.html') Courses
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/our-team.html') Our Team
+                        a.nav-link.smoth-scroll(href='our-team.html') Our Team
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/blog.html') Blog
+                        a.nav-link.smoth-scroll(href='blog.html') Blog
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/contact.html') Contact
+                        a.nav-link.smoth-scroll(href='contact.html') Contact
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
         #page-banner.page-banner-area.page-contact
@@ -53,41 +53,6 @@ html
         // MAIN HEADER AREA END
         // Contact START
         section.section-padding
-            .container
-                .row
-                    .col-lg-6.col-sm-12.col-md-12
-                        .mb-5
-                            h2.mb-2 Get in touch
-                            p
-                                | Do you want to book a session? Or just want to know more about us? Feel free to reach out. We
-                                | will get back to you as soon as possible.
-                .row
-                    .col-lg-7.col-sm-12
-                        form#contactForm
-                            // form message
-                            .row
-                                .col-12
-                                    .alert.alert-success.contact__msg(style='display: none' role='alert')
-                                        | Your message was sent successfully.
-                            // end message
-                            .row
-                                .col-md-6.form-group
-                                    input.form-control(name='name' id="name" type='text' placeholder='Name' required='')
-                                .col-md-6.form-group
-                                    input.form-control(name='email' id="email" type='email' placeholder='Email' required='')
-                                .col-md-12.form-group
-                                    input.form-control(name='subject' id="subject" type='text' placeholder='Subject' required='')
-                                .col-12.form-group
-                                    textarea.form-control(name='message' id="message" rows='6' placeholder='Message' required='')
-                                .col-12.mt-4
-                                    input.btn.btn-hero.btn-circled(name='submit' type='submit' value='Send Message')
-                    .col-lg-5.pl-4.mt-4.mt-lg-0
-                        h4 Contact Info
-                            p.mb-3 +91 8499896757
-                        h4 Contact Mail
-                            p.mb-3 saavishkaara.btt@gmail.com
-                        h4 Website
-                            p www.saavishkaara.com
         // CONTACT END
         // FOOTER AREA START
         section#footer.section-padding

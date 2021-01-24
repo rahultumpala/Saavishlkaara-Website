@@ -30,6 +30,9 @@ app.use(cookieParser());
 // to set no cache headers
 app.use(nocache());
 
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 // logging requests using morgan
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));

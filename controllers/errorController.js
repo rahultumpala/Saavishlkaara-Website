@@ -7,7 +7,7 @@ const handleCastErrorDB = (err) => {
 
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  console.log(value);
+  // console.log(value);
 
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
@@ -20,6 +20,7 @@ const handleValidationErrorDB = (err) => {
 };
 
 const sendErrorDev = (err, req, res) => {
+  console.log(err.message)
   if (req.originalUrl.startsWith('/api')) {
     res.status(err.statusCode).json({
       status: err.status,
@@ -28,9 +29,7 @@ const sendErrorDev = (err, req, res) => {
       stack: err.stack,
     });
   } else {
-    const nav = req.originalUrl.split('/')[1];
     return res.status(err.statusCode).render('error', {
-      navBar: nav,
       code: err.statusCode,
       message: err.message,
     });
@@ -42,9 +41,7 @@ const sendErrorProd = (err, req, res) => {
   // check if its api or website
   if (req.originalUrl.startsWith('/api')) {
     if (err.isOperational) {
-      const nav = req.originalUrl.split('/')[1];
       return res.status(err.statusCode).json({
-        navBar: nav || undefined,
         status: err.status,
         message: err.message,
       });
@@ -53,9 +50,7 @@ const sendErrorProd = (err, req, res) => {
       // 1) Log error
       // console.error('ERROR is ................', err);
       // 2) Send generic message
-      const nav = req.originalUrl.split('/')[1];
       return res.status(500).json({
-        navBar: nav,
         status: 'error',
         message: 'Something went very wrong!',
       });
