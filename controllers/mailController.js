@@ -8,12 +8,12 @@ exports.sendContactMail = catchAsync(async (req, res, next) => {
     const text = `From : ${req.body.name} -- ${req.body.email}\n Subject: ${req.body.subject} \n Message : ${req.body.message}`;
     const msg = {
         to: 'contactus@saavishkaara.com',
-        from: 'contactus@saavishkaara.com',
+        from:'contactus@saavishkaara.com',
         subject,
         text,
     }
     var resp = await sgMail.send(msg);
-    res.status(200).json({ status: 'success' });
+    res.status(200).json({ status: 'success', response : resp });
 });
 
 
