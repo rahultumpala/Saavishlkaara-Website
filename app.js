@@ -12,7 +12,8 @@ const cookieParser = require('cookie-parser');
 const nocache = require('nocache')
 // const authController = require("./controllers/authController.js");
 const userRouter = require("./routes/userRoutes");
-const mailRouter = require("./routes/mailRoutes")
+const mailRouter = require("./routes/mailRoutes");
+const viewRouter = require("./routes/viewRoutes");
 
 const app = express();
 
@@ -64,8 +65,9 @@ app.use(
 app.options("*", cors());
 
 //  ROUTES
+app.use("/", viewRouter);
 app.use("/api/v1/users/", userRouter);
-app.use("/api/v1/mail/",mailRouter);
+app.use("/api/v1/mail/", mailRouter);
 
 app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

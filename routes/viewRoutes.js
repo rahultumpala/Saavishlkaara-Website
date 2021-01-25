@@ -1,4 +1,9 @@
 const express = require("express");
-const Router = express.Router();
+const viewController = require("../controllers/viewController")
+const router = express.Router();
 
-Router.route("/contact").get();
+router.route("/contact").get();
+
+router.route("/").get(viewController.getHomepage)
+
+module.exports = router;

@@ -4,3 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 exports.getContactPage = catchAsync(async (req, res, next) => {
     res.status(200).render('contact');
 })
+
+exports.getHomepage = catchAsync(async (req,res,next) => {
+    res.status(200).render("index.html")
+})
