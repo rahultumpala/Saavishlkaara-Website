@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon server.js"
+    "start": "nodemon server.js",
+    "watch.js": "parcel watch ./public/js/script.js  --out-dir ./public/js --out-file ./public/js/bundle.js --public-url /public/js",
+    "build.js": "parcel build ./public/js/script.js  --out-dir ./public/js --out-file ./public/js/bundle.js --public-url /public/js",
+    "start:prod:win": "set NODE_ENV=production && nodemon server.js",
+    "start:prod:linux": "NODE_ENV=production nodemon server.js",
+    "start:dev:win": "set NODE_ENV=development && nodemon server.js",
+    "start:dev:linux": "NODE_ENV=development nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -33,5 +39,8 @@
     "serve-favicon": "^2.5.0",
     "validator": "^13.0.0",
     "xss-clean": "^0.1.1"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

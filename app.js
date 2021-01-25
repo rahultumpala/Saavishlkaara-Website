@@ -56,7 +56,7 @@ app.use(hpp({ whitelist: [] }));
 app.use(
     cors({
         credentials: true,
-        origin: `http://localhost:${process.env.PORT}`,
+        origin: `localhost:${process.env.PORT}`,
         preflightContinue: true,
     })
 );
