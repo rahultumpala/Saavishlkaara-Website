@@ -17,30 +17,30 @@ html
         link(rel='stylesheet' href='/plugins/icofont/icofont.css')
         // Main Stylesheet
         link(rel='stylesheet' href='/css/style.css')
-    body
+    body(data-spy="scroll" data-target=".fixed-top")
         // MAIN HEADER AREA START
         nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
             .container
                 img#logo-img.img-fluid.b-logo(src='/images/logo.png' alt='')
-                a.navbar-brand.d-flex.flex-row(href='/index.html')
-                img.img-fluid.b-logo(src='/images/logo-text-18.png' alt='')
+                a.navbar-brand.d-flex.flex-row(href='/')
+                    img.img-fluid.b-logo(src='/images/logo-text-18.png' alt='')
                 button.navbar-toggler(type='button' data-toggle='collapse' data-target='#mainNav' aria-controls='mainNav' aria-expanded='false' aria-label='Toggle navigation')
                     span.navbar-toggler-icon
                         i.fa.fa-bars
                 div#mainNav.collapse.navbar-collapse.justify-content-end
                     ul.navbar-nav
                         li.nav-item
-                        a.nav-link.dropdown-toggle(href='/index.html') Home
+                            a.nav-link.smoth-scroll(href='/') Home
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/about.html') About
+                            a.nav-link.smoth-scroll(href='/about') About
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/courses.html') Courses
+                            a.nav-link.smoth-scroll(href='/courses') Courses
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/our-team.html') Our Team
+                            a.nav-link.smoth-scroll(href='/our-team') Our Team
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/blog.html') Blog
+                            a.nav-link.smoth-scroll(href='/blog') Blog
                         li.nav-item
-                        a.nav-link.smoth-scroll(href='/contact.html') Contact
+                            a.nav-link.smoth-scroll(href='/contact') Contact
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
         #page-banner.page-banner-area.page-contact
