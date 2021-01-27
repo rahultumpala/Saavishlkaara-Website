@@ -56,7 +56,8 @@ app.use(hpp({ whitelist: [] }));
 app.use(
     cors({
         credentials: true,
-        origin: `localhost:${process.env.PORT}`,
+        // origin: `localhost:${process.env.PORT}`,
+        origin: `https://www.saavishkaara.com`,
         preflightContinue: true,
     })
 );

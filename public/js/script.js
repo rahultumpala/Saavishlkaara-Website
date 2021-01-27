@@ -15,8 +15,8 @@ const contactForm = document.getElementById("contactForm");
 if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        // const url = "https://saavishkaara.com/api/v1/mail/contact-form-mail";
-        const url = "http://localhost:5050/api/v1/mail/contact-form-mail";
+        const url = "https://www.saavishkaara.com/api/v1/mail/contact-form-mail";
+        // const url = "http://localhost:5050/api/v1/mail/contact-form-mail";
         const email = document.getElementById('email')
         const message = document.getElementById('message')
         const name = document.getElementById('name')
