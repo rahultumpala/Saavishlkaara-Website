@@ -25,3 +25,7 @@ exports.getTeamPage = catchAsync(async (req, res, next) => {
 exports.getContactPage = catchAsync(async (req, res, next) => {
     res.status(200).render("contact");
 });
+
+exports.getCampusAmbassadorsPage = catchAsync(async (req, res, next) => {
+    res.status(200).sendFile(path.join(__dirname, "../views/campus-ambassadors.html"))
+})

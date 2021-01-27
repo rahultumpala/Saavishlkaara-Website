@@ -8,6 +8,7 @@ router.route("/contact").get(viewController.getContactPage);
 router.route("/about").get(viewController.getAboutPage);
 router.route("/blog").get(viewController.getBlogPage);
 router.route("/courses").get(viewController.getCoursesPage);
+router.route("/campus-ambassadors").get(viewController.getCampusAmbassadorsPage);
 
 
 module.exports = router;
