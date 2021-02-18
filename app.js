@@ -14,6 +14,7 @@ const nocache = require('nocache')
 const userRouter = require("./routes/userRoutes");
 const mailRouter = require("./routes/mailRoutes");
 const viewRouter = require("./routes/viewRoutes");
+const blogRouter = require("./routes/blogRoutes");
 
 const app = express();
 
@@ -35,7 +36,9 @@ app.use(nocache());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // logging requests using morgan
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development"
+    // || process.env.NODE_ENV === "production"
+) {
     app.use(morgan("dev"));
 }
 
@@ -66,8 +69,9 @@ app.options("*", cors());
 
 //  ROUTES
 app.use("/", viewRouter);
-app.use("/api/v1/users/", userRouter);
-app.use("/api/v1/mail/", mailRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/mail", mailRouter);
+app.use("/api/v1/blog", blogRouter);
 
 app.all("*", (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

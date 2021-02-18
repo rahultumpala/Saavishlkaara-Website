@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 const blogSchema = mongoose.Schema({
     createdAt: {
@@ -6,24 +7,16 @@ const blogSchema = mongoose.Schema({
         required: [true, "A blog must have a date created"]
     },
     createdBy: {
-        type: ObjectId,
+        type: mongoose.ObjectId,
         required: [true, "A blog must have a created User"],
     },
     readingTime: {
         type: String,
-        required: [true, "A blog post must have a specified reading time"]
-    },
-    title: {
-        type: String,
-        required: [true, "A blog post must have a title"]
+        // required: [true, "A blog post must have a specified reading time"]
     },
     tags: {
         type: [String],
-        required: [true, "A blog post must have specified tags"]
-    },
-    tagline: {
-        type: String,
-        required: [true, "A blog post must have a tag line"]
+        // required: [true, "A blog post must have specified tags"]
     },
     content: {
         type: String,
@@ -31,8 +24,23 @@ const blogSchema = mongoose.Schema({
     },
     images: {
         type: [String],
+    },
+    status: {
+        type: String,
+        enum: ['save', 'publish'],
+        default: 'save'
+    },
+    slug: {
+        type: String,
+        unique: true,
+    },
+    firstPara: {
+        type: String,
+    },
+    title: {
+        type: String
     }
 });
 
-const model = new mongoose.Model("Blogs_model", blogSchema);
-module.exports = model;
+const Model = new mongoose.model("blog", blogSchema);
+module.exports = Model;

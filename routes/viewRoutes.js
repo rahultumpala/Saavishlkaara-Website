@@ -1,5 +1,6 @@
 const express = require("express");
 const viewController = require("../controllers/viewController")
+const authController = require("../controllers/authController")
 const router = express.Router();
 
 router.route("/our-team").get(viewController.getTeamPage);
@@ -9,6 +10,11 @@ router.route("/about").get(viewController.getAboutPage);
 router.route("/blog").get(viewController.getBlogPage);
 router.route("/courses").get(viewController.getCoursesPage);
 router.route("/campus-ambassadors").get(viewController.getCampusAmbassadorsPage);
-
+router.route("/campus-ambassadors").get(viewController.getCampusAmbassadorsPage);
+router.route("/auth").get(viewController.getAuthPage);
+router.route("/user-profile").get(authController.protect, viewController.getUserProfilePage);
+router.route("/new-blog-post").get(authController.protect, viewController.getNewBlogPostPage);
+router.route("/my-blogs").get(authController.protect, viewController.getMyBlogsPage);
+router.route("/my-blogs/saved/:type/:slug").get(authController.protect, viewController.getMyBlogsPage);
 
 module.exports = router;

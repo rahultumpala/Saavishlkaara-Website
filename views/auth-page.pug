@@ -6,7 +6,7 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - Error 
+        title Saavishkaara Contact
         // bootstrap.min css
         link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
@@ -41,12 +41,10 @@ html
                             a.nav-link.smoth-scroll(href='/blog') Blog
                         li.nav-item
                             a.nav-link.smoth-scroll(href='/contact') Contact
-                        if user
-                            li.nav-item
-                                a.nav-link.smoth-scroll(href="/user-profile" ) Profile    
-                        else
-                            li.nav-item
-                                a.nav-link.smoth-scroll(href='/auth') Login
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/campus-ambassadors') Campus Ambassadors
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/auth') Login
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
         #page-banner.page-banner-area.page-contact
@@ -55,13 +53,32 @@ html
                 .row.justify-content-center
                     .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
                         .banner-content.content-padding
-                            h1.text-white Oops! An Error Occured
+                            h1.text-white Join Saavishkaara
         // MAIN HEADER AREA END
-        // Contact START
+        // Autyh START
         section.section-padding
-            center
-                h2.mx-5.px-5 
-                    | #{code} - #{message}
+            .container
+                .row
+                    .col-lg-7.col-sm-12
+                        form#signin-form
+                            h1.h3.mb-3.fw-normal Please sign in
+                            label.visually-hidden(for='inputMobileNumber') Mobile Number
+                            input#inputMobileNumber.form-control(type='text' placeholder='Mobile Number' maxlength=10 required='' autofocus='')
+                            br
+                            label.visually-hidden(for='inputPassword') Password
+                            input#inputPassword.form-control(type='password' placeholder='Password' required='')
+                            //- .checkbox.mb-3
+                            //-     label
+                            //-         input(type='checkbox' value='remember-me')
+                            //-         |  Remember me
+                            br
+                            button.w-55.btn.btn-lg.btn-primary(type='submit') Sign in
+                            br
+                        a(href="/auth/register")
+                            button.w-55.btn.btn-lg.btn-primary Register
+
+
+
         // CONTACT END
         // FOOTER AREA START
         section#footer.section-padding

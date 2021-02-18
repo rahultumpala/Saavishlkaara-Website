@@ -1,18 +1,30 @@
-const express = require('express')
 const UserModel = require("../models/user-model")
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync")
+const AppError = require("../utils/appError")
+const BlacklistedTokens = require("../models/blacklisted-tokens");
+const { promisify } = require("util");
 
 const signToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET, {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
     })
 }
 
 const createSendToken = (user, statusCode, res) => {
     const token = signToken(user._id);
+    currentToken = token;
+    const cookieOptions = {
+        expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000
+        ),
+        // httpOnly: true,
+    };
+    if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+    res.cookie("jwt", token, cookieOptions);
     // Remove password from output
     user.password = undefined;
+    res.locals.loggedInUser = user;
     res.status(statusCode).json({
         status: "success",
         token,
@@ -21,40 +33,42 @@ const createSendToken = (user, statusCode, res) => {
         },
     });
 };
-
 exports.login = catchAsync(async (req, res, next) => {
-    const { email, password, mobileNumber } = req.body;
-    /// ------------------ we need to do it with either email/password or mobileNumber/password ---------
-    // ------------ For now lets stick with mobileNumber/password ------------
+    const { phoneNumber, password } = req.body;
+    /// ------------------ we need to do it with either email/password or phoneNumber/password ---------
+    // ------------ For now lets stick with phoneNumber/password ------------
     // 1) Check if email and password exist
-    if (!mobileNumber || !password) {
+    if (!phoneNumber || !password) {
         return next(
             new AppError("Please provide Mobile Number and Password!", 400)
         );
     }
     // 2) Check if user exists && password is correct
-    const user = await User.findOne({ mobileNumber }).select("+password");
-
+    const user = await UserModel.findOne({ phoneNumber: parseInt(phoneNumber, 10) }).select("+password");
     if (!user || !(await user.correctPassword(password, user.password))) {
         return next(new AppError("Incorrect Mobile Number or Password", 401));
     }
-    // for view controller 
+    // For view Controller
     req.user = user;
-
-
     // this will change the header to [logout] from [login]
-    // res.locals.loggedInUser = user;
+    res.locals.loggedInUser = user;
     //// --------------- not needed because the users wont be using the dashboard ---------------
     // 3) If everything ok, send token to client
     createSendToken(user, 200, res);
 });
 
 exports.signup = catchAsync(async (req, res, next) => {
-    const { firstName, lastName, username, password, passwordConfirm, phoneNumber, collegeName, branchName, qualification } = req.body;
+    const { firstName, email, lastName, username, password, passwordConfirm, phoneNumber, collegeName, branchName, qualification, userDescription } = req.body;
     const newUser = await UserModel.create({
-        firstName, lastName, username, password, passwordConfirm, phoneNumber, collegeName, branchName, qualification
+        firstName, email, lastName, username, password, passwordConfirm, phoneNumber, collegeName, branchName, qualification, userDescription
     });
-    res.locals.loggedInUser = newUser;
+    // console.log(newUser);
+    if (newUser) {
+        req.user = newUser;
+        createSendToken(newUser, 200, res);
+    } else {
+        throw new AppError(400, "Request Failed")
+    }
 })
 
 exports.logout = async (req, res) => {
@@ -110,7 +124,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     // 2) Verification token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
     // 3) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
+    const currentUser = await UserModel.findById(decoded.id);
     if (!currentUser) {
         return next(
             new AppError(
@@ -121,6 +135,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
+    req.requestTime = Date.now();
     next();
 });
 
@@ -139,29 +154,29 @@ exports.restrictTo = (...roles) => {
 
 exports.verifyToken = catchAsync(async (req, res, next) => {
     try {
-      let token = req.body.token;
-      // 0) Check if the token is blacklisted
-      const blacklisted = await BlacklistedTokens.findOne({
-        token,
-      });
-      if (blacklisted) {
-        return next(
-          new AppError("You are not logged in! Please log in to get access.", 401)
-        );
-      }
-  
-      // 1) verify token
-      const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  
-      // 2) Check if user still exists
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next(new AppError("Details No Longer Valid", 404));
-      }
+        let token = req.body.token;
+        // 0) Check if the token is blacklisted
+        const blacklisted = await BlacklistedTokens.findOne({
+            token,
+        });
+        if (blacklisted) {
+            return next(
+                new AppError("You are not logged in! Please log in to get access.", 401)
+            );
+        }
+
+        // 1) verify token
+        const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+        // 2) Check if user still exists
+        const currentUser = await User.findById(decoded.id);
+        if (!currentUser) {
+            return next(new AppError("Details No Longer Valid", 404));
+        }
     } catch (err) {
-      return next(new AppError("User Not Logged in", 401));
+        return next(new AppError("User Not Logged in", 401));
     }
     res.status(200).json({
-      status: "success",
+        status: "success",
     });
-  });
+});

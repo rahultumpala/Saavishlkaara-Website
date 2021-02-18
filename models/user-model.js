@@ -12,13 +12,20 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: [true, "Please Provide a Username"]
+        // Removing for now: TODO: Add later
+        // required: [true, "Please Provide a Username"]
     },
     password: {
         type: String,
         minlength: 6,
         required: [true, "Please provide a Password"],
         select: false,
+    },
+    email: {
+        type: String,
+        required: [true, "Please provide an email address"],
+        validate: [validator.isEmail, "Please enter a valid Email address"],
+        unique: true,
     },
     passwordConfirm: {
         type: String,
@@ -33,6 +40,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please confirm the password']
     },
     phoneNumber: {
+        unique: true,
         type: Number,
         minlength: 10,
         maxLength: 10,
@@ -50,6 +58,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["admin", "tutor", 'user'],
         default: "user",
+    },
+    userDescription: {
+        type: String,
+        maxlength: 500,
+        minlength: 0,
+    },
+    blogsWritten: {
+        type: Number,
+        default: 0
     }
 })
 
@@ -77,5 +94,5 @@ userSchema.methods.correctPassword = async function (candidatePwd, userPwd) {
     return await bcrypt.compare(candidatePwd, userPwd);
 }
 
-const User = mongoose.model('UserModel', userSchema);
+const User = mongoose.model('Users', userSchema);
 module.exports = User;

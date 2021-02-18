@@ -6,7 +6,7 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - Error 
+        title Saavishkaara - My Profile 
         // bootstrap.min css
         link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
@@ -17,6 +17,10 @@ html
         link(rel='stylesheet' href='/plugins/icofont/icofont.css')
         // Main Stylesheet
         link(rel='stylesheet' href='/css/style.css')
+        script(src='/plugins/jquery/jquery.min.js')
+        script(src='/plugins/bootstrap/js/bootstrap.min.js')
+
+
     body(data-spy="scroll" data-target=".fixed-top")
         // MAIN HEADER AREA START
         nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
@@ -41,12 +45,14 @@ html
                             a.nav-link.smoth-scroll(href='/blog') Blog
                         li.nav-item
                             a.nav-link.smoth-scroll(href='/contact') Contact
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/campus-ambassadors') Campus Ambassadors
                         if user
                             li.nav-item
                                 a.nav-link.smoth-scroll(href="/user-profile" ) Profile    
                         else
                             li.nav-item
-                                a.nav-link.smoth-scroll(href='/auth') Login
+                                a.nav-link.smoth-scroll(href='/auth') Login    
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
         #page-banner.page-banner-area.page-contact
@@ -55,14 +61,21 @@ html
                 .row.justify-content-center
                     .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
                         .banner-content.content-padding
-                            h1.text-white Oops! An Error Occured
-        // MAIN HEADER AREA END
-        // Contact START
-        section.section-padding
-            center
-                h2.mx-5.px-5 
-                    | #{code} - #{message}
-        // CONTACT END
+                            h1.text-white Write a Blog Post
+
+
+        // Blog POST SECTION START
+        section.new-blog-post
+            .notes.mx-5.my-5
+                h4 Use the editor below to create an amazing blog post :)
+                p For embedding links try pasting them directly into the editor
+            //Create the editor container 
+            #editorContainer(class="mx-5 my-3")
+                #editor
+            button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn") Save Article
+            button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn") Publish
+        // Blog POST SECTION END
+
         // FOOTER AREA START
         section#footer.section-padding
             .container
@@ -108,10 +121,8 @@ html
         // Essential Scripts
         // =====================================
         // Main jQuery
-        script(src='/plugins/jquery/jquery.min.js')
         // Bootstrap 4.3.1
         script(src='/plugins/bootstrap/js/popper.min.js')
-        script(src='/plugins/bootstrap/js/bootstrap.min.js')
         // Woow animtaion
         script(src='/plugins/counterup/wow.min.js')
         script(src='/plugins/counterup/jquery.easing.1.3.js')
@@ -119,4 +130,12 @@ html
         script(src='/plugins/counterup/jquery.waypoints.js')
         script(src='/plugins/counterup/jquery.counterup.min.js')
         script(src='/js/custom.js')
+        script(src='/js/editor.js')
+        script(src='https://cdn.jsdelivr.net/npm/@editorjs/header@latest')
+        script(src='https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest')
+        script(src='https://cdn.jsdelivr.net/npm/@editorjs/list@latest')
+        script(src='https://cdn.jsdelivr.net/npm/@editorjs/quote@latest')
+        script(src='https://cdn.jsdelivr.net/npm/@editorjs/embed@latest')
         script(src='/js/bundle.js')
+
+

@@ -1,0 +1,229 @@
+html
+    head
+        // Required meta tags
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description' content='seo & digital marketing')
+        meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
+        meta(name='author' content='Themefisher.com')
+        title Saavishkaara - My Profile 
+        // bootstrap.min css
+        link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
+        // Icofont Css
+        link(rel='stylesheet' href='/plugins/fontawesome/css/all.css')
+        // animate.css
+        link(rel='stylesheet' href='/plugins/animate-css/animate.css')
+        // Icofont
+        link(rel='stylesheet' href='/plugins/icofont/icofont.css')
+        // Main Stylesheet
+        link(rel='stylesheet' href='/css/style.css')
+        script(src='/plugins/jquery/jquery.min.js')
+        script(src='/plugins/bootstrap/js/bootstrap.min.js')
+
+    body(data-spy="scroll" data-target=".fixed-top")
+        // MAIN HEADER AREA START
+        nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
+            .container
+                img#logo-img.img-fluid.b-logo(src='/images/logo.png' alt='')
+                a.navbar-brand.d-flex.flex-row(href='/')
+                    img.img-fluid.b-logo(src='/images/logo-text-18.png' alt='')
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#mainNav' aria-controls='mainNav' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                        i.fa.fa-bars
+                div#mainNav.collapse.navbar-collapse.justify-content-end
+                    ul.navbar-nav
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/') Home
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/about') About
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/courses') Courses
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/our-team') Our Team
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/blog') Blog
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/contact') Contact
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/campus-ambassadors') Campus Ambassadors
+                        if user
+                            li.nav-item
+                                a.nav-link.smoth-scroll(href="/user-profile" ) Profile        
+                        else
+                            li.nav-item
+                                a.nav-link.smoth-scroll(href='/auth') Login    
+        // MAIN HEADER AREA END
+        // MAIN BANNER AREA START
+        #page-banner.page-banner-area.page-contact
+            .overlay.dark-overlay
+            .container
+                .row.justify-content-center
+                    .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
+                        .banner-content.content-padding
+                            h1.text-white Profile
+
+        //- PROFILE SECTION START
+        section.profile-section
+            .container.emp-profile
+                .row
+                    // will include in later releases
+                    //- .col-md-4
+                    //-     .profile-img
+                    //-         img(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog' alt='')
+                    //-         .file.btn.btn-lg.btn-primary
+                    //-             | Change Photo
+                    //-             input(type='file' name='file')
+                    .col-md-10
+                        .profile-head
+                            h3(style="text-transform:uppercase;")
+                                | #{user.firstName +" "+ user.lastName}
+                            h4
+                                | #{user.qualification}
+                            p.proile-rating
+                                | Blogs Written : 
+                                span #{user.blogsWritten}
+                                button(id="new-blog" class="btn ml-2 btn-outline-primary") Write Blog
+                                button(id="view-blogs" class="btn ml-2 btn-outline-primary") View Blogs
+                            ul#myTab.nav.nav-tabs(role='tablist')
+                                li.nav-item
+                                    a#home-tab.nav-link.active(data-toggle='tab' href='#home' role='tab' aria-controls='home' aria-selected='true') About
+                                //- li.nav-item
+                                //-     a#profile-tab.nav-link(data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aria-selected='false') Timeline
+                    .col-md-2
+                        button.profile-page-btn( id="logout-btn" class="mb-5") Logout
+                        button.profile-page-btn( id="edit-profile-btn") Edit Profile
+                .row
+                    // Will include in later releases
+                    //- .col-md-4
+                    //-     .profile-work
+                    //-         p WORK LINK
+                    //-         a(href='') Website Link
+                    //-         br
+                    //-         a(href='') Bootsnipp Profile
+                    //-         br
+                    //-         a(href='') Bootply Profile
+                    //-         p SKILLS
+                    //-         a(href='') Web Designer
+                    //-         br
+                    //-         a(href='') Web Developer
+                    //-         br
+                    //-         a(href='') WordPress
+                    //-         br
+                    //-         a(href='') WooCommerce
+                    //-         br
+                    //-         a(href='') PHP, .Net
+                    //-         br
+                    .col-md-8
+                        #myTabContent.tab-content.profile-tab
+                            #home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='home-tab')
+                                .row
+                                    .col-md-6
+                                        label Full name
+                                    .col-md-6
+                                        p(style="text-transform:uppercase;") #{user.firstName +" "+ user.lastName}
+                                .row
+                                    .col-md-6
+                                        label Email
+                                    .col-md-6
+                                        p #{user.email}
+                                .row
+                                    .col-md-6
+                                        label Phone
+                                    .col-md-6
+                                        p #{user.phoneNumber}
+                                .row
+                                    .col-md-6
+                                        label Qualification
+                                    .col-md-6
+                                        p #{user.qualification}
+                                .row
+                                    .col-md-6
+                                        label Your Description
+                                    .col-md-6
+                                        p #{user.userDescription}
+                            //- #profile.tab-pane.fade(role='tabpanel' aria-labelledby='profile-tab')
+                            //-     .row
+                            //-         .col-md-6
+                            //-             label Experience
+                            //-         .col-md-6
+                            //-             p Expert
+                            //-     .row
+                            //-         .col-md-6
+                            //-             label Hourly Rate
+                            //-         .col-md-6
+                            //-             p 10$/hr
+                            //-     .row
+                            //-         .col-md-6
+                            //-             label Total Projects
+                            //-         .col-md-6
+                            //-             p 230
+                            //-     .row
+                            //-         .col-md-6
+                            //-             label English Level
+                            //-         .col-md-6
+                            //-             p Expert
+                            //-     .row
+                            //-         .col-md-6
+                            //-             label Availability
+                            //-         .col-md-6
+                            //-             p 6 months
+                            //-     .row
+                            //-         .col-md-12
+                            //-             label Your Bio
+                            //-             br
+                            //-             p Your detail description
+                            // FOOTER AREA START
+    section#footer.section-padding
+        .container
+            .row
+                .col-lg-5.col-sm-8.col-md-8
+                    .footer-widget.footer-link
+                        h4
+                            | We are Excited!
+                            br
+                            |  Are you?
+                        p
+                            | Don&apos;t miss this oppurtunity to contact us and brighten the future of the young minds of your
+                            | institution.
+                .col-lg-2.col-sm-4.col-md-4
+                    .footer-widget.footer-link
+                        h4 About
+                        ul
+                            li
+                            a(href='/about') About
+                            li
+                            a(href='/our-team') Team
+                            li
+                            a(href='/blog') Blog
+                            li
+                            a(href='/contact') Contact
+                .col-lg-3.col-sm-6.col-md-6
+                    .footer-widget.footer-text
+                        h4 Our location
+                        p.mail
+                            span Mail:
+                            |  saavishkaara.btt@gmail.com
+                        p
+                            span Phone :
+                            | +91 8499896757
+                        p
+                            span Location:
+                            |  Shanti nagar, Masab tank, Hyderabad, India
+            .row
+                .col-lg-12.text-center
+                    .footer-copy
+                        | &copy; 2020 Saavishkaara . All Rights Reserved.
+    // FOOTER AREA END
+    // Essential Scripts
+    // =====================================
+    // Main jQuery
+    // Bootstrap 4.3.1
+    script(src='/plugins/bootstrap/js/popper.min.js')
+    // Woow animtaion
+    script(src='/plugins/counterup/wow.min.js')
+    script(src='/plugins/counterup/jquery.easing.1.3.js')
+    // Counterup
+    script(src='/plugins/counterup/jquery.waypoints.js')
+    script(src='/plugins/counterup/jquery.counterup.min.js')
+    script(src='/js/custom.js')
+    script(src='/js/bundle.js')
