@@ -139,6 +139,35 @@ exports.protect = catchAsync(async (req, res, next) => {
     next();
 });
 
+exports.addUserToRequest = async (req, res, next) => {
+    let token;
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+    ) {
+        token = req.headers.authorization.split(" ")[1];
+    } else if (req.headers.cookie) {
+        token = req.headers.cookie.split("jwt=")[1];
+    }
+    if (!token) {
+        return next();
+    } else {
+        const blacklisted = await BlacklistedTokens.findOne({ token });
+        if (blacklisted) {
+            return next();
+        } else {
+            const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+            const currentUser = await UserModel.findById(decoded.id);
+            if (currentUser) {
+                req.user = currentUser;
+                req.requestTime = Date.now();
+                return next();
+            }
+        }
+    }
+    return next();
+}
+
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {
         // roles ['admin', 'lead-guide']. role='user'

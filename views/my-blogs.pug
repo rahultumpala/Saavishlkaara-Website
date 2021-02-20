@@ -6,7 +6,7 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - My Profile 
+        title Saavishkaara - My Blogs
         // bootstrap.min css
         link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
@@ -80,13 +80,16 @@ html
                                         | #{blog.firstPara}
                                 .middle.list-group-item.d-flex.align-items-center.text-center
                                     p
-                                    | #{blog.status=="save" ? "Saved Only" : "Published Only"} 
+                                    | #{blog.status=="save" ? "Save Only" : "Publish Only"} 
                                 .right-side.list-group-item.d-flex.align-items-center
                                     if blog.status == "save"
-                                        a.card-link(href=`/my-blogs/saved/${blog.slug}`) View
+                                        a.card-link(href=`/my-blogs/saved/view/${blog.slug}`) View
                                     if blog.status != "save"
-                                        a.card-link(href=`/blogs/${blog.slug}`) View
-                                    a.card-link(href='#') Edit
+                                        a.card-link(href=`/blog/${blog.slug}`) View
+                                    if blog.status == "save"
+                                        a.card-link(href=`/my-blogs/saved/edit/${blog.slug}`) Edit
+                                    if blog.status != "save"
+                                        a.card-link(href=`/my-blogs/published/edit/${blog.slug}`) Edit
                 else 
                     h2.my-5 No Blogs Written :(
                     button(id="new-blog" class="btn ml-2 btn-primary mb-5") Write Blog

@@ -113,7 +113,7 @@ if (blogEditor) {
         },
         data: {
             "time": 1550476186479,
-            "blocks": [
+            "blocks": editBlog == true ? blogContent : [
                 {
                     "type": "header",
                     "data": {
@@ -131,17 +131,19 @@ if (blogEditor) {
             "version": "2.8.1"
         }
     })
-
     const alertLocation = "#editorContainer"
     saveArticleBtn.addEventListener('click', async (e) => {
         try {
             const url = globalUrl + "/api/v1/blog/save"
             const data = await editor.save();
+            const hasModified = saveArticleBtn.dataset.modify || false;
+            const blogId = hasModified ? saveArticleBtn.dataset.id : undefined;
+            const body = { data, hasModified, blogId }
             // console.log(data);
             const response = await axios({
                 method: "POST",
                 url,
-                data,
+                data: body,
                 withCredentials: true,
             });
             if (response.data.status == "success") {
@@ -155,16 +157,19 @@ if (blogEditor) {
             setTimeout(hideAlert, 3000)
         }
     })
-
     publishArticleBtn.addEventListener('click', async (e) => {
         try {
+            const hasModified = publishArticleBtn.dataset.modify || false;
             const url = globalUrl + "/api/v1/blog/publish"
+
             const data = await editor.save();
+            const blogId = hasModified ? saveArticleBtn.dataset.id : undefined;
+            const body = { data, hasModified, blogId }
             // console.log(data);
             const response = await axios({
                 method: "POST",
                 url,
-                data,
+                data: body,
                 withCredentials: true,
             });
             if (response.data.status == "success") {

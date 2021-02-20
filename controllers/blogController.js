@@ -6,28 +6,28 @@ const slugify = require("slugify")
 function convertDataToHtml(blocks) {
     var convertedHtml = "";
     blocks.map(block => {
-
         switch (block.type) {
             case "header":
-                convertedHtml += `h${block.data.level}\n|\t${block.data.text}`;
+                convertedHtml += `\n<h${block.data.level}>${block.data.text}</h${block.data.level}>`;
                 break;
             case "embded":
-                convertedHtml += `div\n\tiframe(width="560" height="315" src="${block.data.embed}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen)`;
+                convertedHtml += `\n<div><iframe width="560" height="315" src="${block.data.embed}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
                 break;
             case "paragraph":
-                convertedHtml += `p\t${block.data.text}`;
+                convertedHtml += `\n<p>${block.data.text}</p>`;
                 break;
             case "delimiter":
-                convertedHtml += "hr";
+                convertedHtml += "\n<hr />";
                 break;
             case "image":
-                convertedHtml += `img(class="img-fluid" src="${block.data.file.url}" title="${block.data.caption}")\nbr\nem\n|\t${block.data.caption}`;
+                convertedHtml += `\n<img class="img-fluid" src="${block.data.file.url}" title="${block.data.caption}" /><br /><em>${block.data.caption}</em>`;
                 break;
             case "list":
-                convertedHtml += "ul\n\t";
+                convertedHtml += "<ul>";
                 block.data.items.forEach(function (li) {
-                    convertedHtml += `li\t${li}`;
+                    convertedHtml += `\n<li>${li}</li>`;
                 });
+                convertedHtml += "</ul>";
                 break;
             default:
                 console.log("Unknown block type", block.type);
@@ -37,13 +37,13 @@ function convertDataToHtml(blocks) {
     return convertedHtml;
 }
 
-function create(status, req) {
+function create(status, req, modified) {
     let foundHeader = false;
     let foundBlog = false;
     let slug = "";
     let firstPara = "";
     let title = "";
-    req.body.blocks.forEach((el) => {
+    req.body.data.blocks.forEach((el) => {
         if (el.type == "header" && !foundHeader) {
             slug = slugify(el.data.text).toLowerCase();
             title = el.data.text
@@ -52,38 +52,72 @@ function create(status, req) {
             firstPara = el.data.text
         }
     })
-    const data = {
-        content: JSON.stringify(req.body.blocks),
-        createdAt: req.requestTime,
-        createdBy: req.user._id,
-        readingTime: req.body.readingTime,
-        tags: req.body.tags,
-        status,
-        slug,
-        title,
-        firstPara,
+    let data;
+    if (modified) {
+        data = {
+            content: req.body.data.blocks,
+            readingTime: req.body.readingTime,
+            tags: req.body.tags,
+            slug,
+            title,
+            firstPara,
+            hasModified: true,
+            modifiedAt: Date.now(),
+            blogId: req.body.blogId,
+            status,
+        }
+    } else {
+        data = {
+            content: req.body.data.blocks,
+            createdAt: req.requestTime,
+            createdBy: req.user._id,
+            readingTime: req.body.readingTime,
+            tags: req.body.tags,
+            status,
+            slug,
+            title,
+            firstPara,
+        }
     }
     return data;
 }
 
 exports.saveArticle = catchAsync(async (req, res, next) => {
-    const data = create("save", req)
-    const blog = await BlogModel.create({ ...data });
-    if (blog) {
-        res.status(200).json({ status: "success" })
+    if (req.body.hasModified) {
+        req.blogData = create("save", req, true)
+        this.modifyArticle(req, res, next)
     } else {
-        throw new AppError("Error Creating a blog entry", 500)
+        const data = create("save", req, false)
+        const blog = await BlogModel.create({ ...data });
+        if (blog) {
+            res.status(200).json({ status: "success" })
+        } else {
+            throw new AppError("Error Creating a blog entry", 500)
+        }
     }
 })
 
-
-exports.publishArticle = catchAsync(async (req, res, next) => {
-    const data = create("publish", req)
-    const blog = await BlogModel.create({ ...data });
+exports.modifyArticle = catchAsync(async (req, res, next) => {
+    const blog = await BlogModel.findByIdAndUpdate(req.body.blogId, { ...req.blogData })
     if (blog) {
         res.status(200).json({ status: "success" })
     } else {
-        throw new AppError("Error Creating a blog entry", 500)
+        throw new AppError("Error Modifying a blog entry", 500)
+    }
+})
+
+exports.publishArticle = catchAsync(async (req, res, next) => {
+    if (req.body.hasModified) {
+        req.blogData = create("publish", req, true)
+        this.modifyArticle(req, res, next);
+    } else {
+        const data = create("publish", req, false)
+        const blog = await BlogModel.create({ ...data });
+        if (blog) {
+            res.status(200).json({ status: "success" })
+        } else {
+            throw new AppError("Error Creating a blog entry", 500)
+        }
     }
 })
 
@@ -97,6 +131,7 @@ exports.getPublishedArticles = catchAsync(async (req, res, next) => {
     res.status(200).json({ status: "success", blogs })
 })
 
+
 exports.getBlogsOfUser = async (user, res) => {
     try {
         const blogs = await BlogModel.find({ createdBy: user._id });
@@ -106,7 +141,50 @@ exports.getBlogsOfUser = async (user, res) => {
             res.locals.blogs = "None"
         }
     } catch (error) {
-        console.log('Error while fetching user Blogs')
-        console.log(error)
+        console.error('Error while fetching user Blogs')
+        console.error(error);
+    }
+}
+
+exports.getSingleBlog = async (user, slug, res) => {
+    try {
+        const blog = await BlogModel.findOne({ createdBy: user._id, slug });
+        if (blog) {
+            res.locals.singleBlog = blog;
+        } else {
+            res.locals.singleBlog = "None"
+        }
+    } catch (error) {
+        console.error('Error while fetching user Blog')
+        console.error(error)
+    }
+}
+
+exports.viewSingleBlog = async (slug, res) => {
+    try {
+        const blog = await BlogModel.findOne({ slug });
+        if (blog) {
+            res.locals.singleBlogContentInPug = convertDataToHtml(blog.content)
+            res.locals.singleBlog = blog;
+        } else {
+            res.locals.singleBlog = "None"
+        }
+    } catch (error) {
+        console.error('Error while fetching user Blog')
+        console.error(error)
+    }
+}
+
+exports.getAllPublishedBlogs = async (res) => {
+    try {
+        const blogs = await BlogModel.find({ status: 'publish' }).populate("createdBy", "firstName lastName");
+        if (blogs) {
+            res.locals.blogs = blogs;
+        } else {
+            res.locals.blogs = "None"
+        }
+    } catch (error) {
+        console.error('Error while fetching user Blog')
+        console.error(error)
     }
 }

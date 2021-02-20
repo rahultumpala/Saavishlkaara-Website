@@ -1894,3 +1894,14 @@ input[type="number"] {
   width: 80vw;
   border: 1px solid black;
 }
+
+.blog-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.blog-card:hover {
+  box-shadow: 0 12px 8px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: inherit;
+}

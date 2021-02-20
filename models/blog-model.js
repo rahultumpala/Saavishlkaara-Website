@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
+const User = require("./user-model")
 
 const blogSchema = mongoose.Schema({
     createdAt: {
@@ -7,7 +8,8 @@ const blogSchema = mongoose.Schema({
         required: [true, "A blog must have a date created"]
     },
     createdBy: {
-        type: mongoose.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: User,
         required: [true, "A blog must have a created User"],
     },
     readingTime: {
@@ -19,7 +21,7 @@ const blogSchema = mongoose.Schema({
         // required: [true, "A blog post must have specified tags"]
     },
     content: {
-        type: String,
+        type: mongoose.Mixed,
         required: [true, "A blog post must have a valid content"]
     },
     images: {
@@ -39,6 +41,13 @@ const blogSchema = mongoose.Schema({
     },
     title: {
         type: String
+    },
+    modifiedAt: {
+        type: Date,
+    },
+    hasModified: {
+        type: Boolean,
+        default: false,
     }
 });
 

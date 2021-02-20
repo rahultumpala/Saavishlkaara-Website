@@ -10,7 +10,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require('cookie-parser');
 const nocache = require('nocache')
-// const authController = require("./controllers/authController.js");
+const authController = require("./controllers/authController.js");
 const userRouter = require("./routes/userRoutes");
 const mailRouter = require("./routes/mailRoutes");
 const viewRouter = require("./routes/viewRoutes");
@@ -68,6 +68,7 @@ app.use(
 app.options("*", cors());
 
 //  ROUTES
+app.all("*", authController.addUserToRequest)
 app.use("/", viewRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/mail", mailRouter);

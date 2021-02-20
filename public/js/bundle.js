@@ -2020,7 +2020,7 @@ if (blogEditor) {
     },
     data: {
       "time": 1550476186479,
-      "blocks": [{
+      "blocks": editBlog == true ? blogContent : [{
         "type": "header",
         "data": {
           "text": "Header Text",
@@ -2039,12 +2039,19 @@ if (blogEditor) {
   saveArticleBtn.addEventListener('click', async e => {
     try {
       const url = globalUrl + "/api/v1/blog/save";
-      const data = await editor.save(); // console.log(data);
+      const data = await editor.save();
+      const hasModified = saveArticleBtn.dataset.modify || false;
+      const blogId = hasModified ? saveArticleBtn.dataset.id : undefined;
+      const body = {
+        data,
+        hasModified,
+        blogId
+      }; // console.log(data);
 
       const response = await (0, _axios.default)({
         method: "POST",
         url,
-        data,
+        data: body,
         withCredentials: true
       });
 
@@ -2060,13 +2067,20 @@ if (blogEditor) {
   });
   publishArticleBtn.addEventListener('click', async e => {
     try {
+      const hasModified = publishArticleBtn.dataset.modify || false;
       const url = globalUrl + "/api/v1/blog/publish";
-      const data = await editor.save(); // console.log(data);
+      const data = await editor.save();
+      const blogId = hasModified ? saveArticleBtn.dataset.id : undefined;
+      const body = {
+        data,
+        hasModified,
+        blogId
+      }; // console.log(data);
 
       const response = await (0, _axios.default)({
         method: "POST",
         url,
-        data,
+        data: body,
         withCredentials: true
       });
 
@@ -2109,7 +2123,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53870" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62939" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

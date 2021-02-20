@@ -6,7 +6,7 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - My Profile 
+        title Saavishkaara - New Blog Post
         // bootstrap.min css
         link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
@@ -63,17 +63,31 @@ html
                         .banner-content.content-padding
                             h1.text-white Write a Blog Post
 
-
         // Blog POST SECTION START
-        section.new-blog-post
-            .notes.mx-5.my-5
-                h4 Use the editor below to create an amazing blog post :)
-                p For embedding links try pasting them directly into the editor
+        section.new-blog-post.mx-5
+            if !editBlog
+                .notes.my-5
+                    h4 Use the editor below to create an amazing blog post :)
+                    p For embedding links try pasting them directly into the editor
+            else 
+                .notes.my-5
+                    h4 Missed Something? Not to worry :)
+                    p Use the editor to modify the blog
+            script. 
+                var blogContent = !{JSON.stringify(blogContent)}
+                editBlog = Boolean("#{editBlog}")
             //Create the editor container 
             #editorContainer(class="mx-5 my-3")
                 #editor
-            button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn") Save Article
-            button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn") Publish
+            if !editBlog 
+                button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn") Save Article
+                button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn") Publish
+            else
+                button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn" data-modify="true" data-id=blogId) Save & Modify
+                button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn" data-modify="true" data-id=blogId) Publish Modifications
+                br 
+                br 
+                p Note: Using Save & Modify will convert the status of your published post into save only. If you want the changes to reflect in a published post, use "Publish Modifications"
         // Blog POST SECTION END
 
         // FOOTER AREA START

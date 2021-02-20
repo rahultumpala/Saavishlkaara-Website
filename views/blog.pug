@@ -1,0 +1,138 @@
+html
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description' content='seo & digital marketing')
+    meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
+    meta(name='author' content='Themefisher.com')
+    title Saavishkaara - Blog 
+    // bootstrap.min css
+    link(rel='stylesheet' href='plugins/bootstrap/css/bootstrap.css')
+    // Icofont Css
+    link(rel='stylesheet' href='plugins/fontawesome/css/all.css')
+    // animate.css
+    link(rel='stylesheet' href='plugins/animate-css/animate.css')
+    // Icofont
+    link(rel='stylesheet' href='plugins/icofont/icofont.css')
+    // Main Stylesheet
+    link(rel='stylesheet' href='css/style.css')
+  body
+    //Main Header start
+    nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
+      .container
+        img#logo-img.img-fluid.b-logo(src='images/logo.png' alt='')
+        a.navbar-brand.d-flex.flex-row(href='/')
+          img.img-fluid.b-logo(src='images/logo-text-18.png' alt='')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#mainNav' aria-controls='mainNav' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+            i.fa.fa-bars
+        #mainNav.collapse.navbar-collapse.justify-content-end
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link.dropdown-toggle(href='/') Home
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/about') About
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/courses') Courses
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/our-team') Our Team
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/blog') Blog
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/contact') Contact
+            li.nav-item
+              a.nav-link.smoth-scroll(href='/campus-ambassadors') Campus Ambassadors
+            if user
+              li.nav-item
+                a.nav-link.smoth-scroll(href="/user-profile" ) Profile    
+            else
+              li.nav-item
+                a.nav-link.smoth-scroll(href='/auth') Login
+    // MAIN HEADER AREA END
+    // MAIN BANNER AREA START
+    #page-banner.page-banner-area.page-contact
+      .overlay.dark-overlay
+      .container
+        .row.justify-content-center
+          .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
+            .banner-content.content-padding
+              h1.text-white Blog
+    // MAIN HEADER AREA END
+    section.all-blogs.mx-5.my-5
+      .blogs-cards-container.mb-5
+        //- -var blog = { "status":'Saved Only', "title" : "sample Title", "slug" : "lorem-ipsum"  ,"firstPara" : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque aperiam at consectetur quasi dolor iste sequi! Sunt consectetur magni ipsam doloribus tenetur debitis optio, incidunt assumenda corporis porro accusantium reprehenderit!" ,"createdOn" : "22nd March 2019" ,"createdBy" : "John Durairaj" }
+        if !noBlogs
+          for blog in blogs
+            a(href=`/blog/${blog.slug}`)
+              .card.px-2.py-2.blog-card(data-slug=blog.slug)
+                .d-flex.flex-row.justify-content-between.px-2.py-2
+                  .side(style="width:100%")
+                    h3.card-title #{blog.title} 
+                    -var createdBy = blog.createdBy.firstName.toUpperCase() + " " + blog.createdBy.lastName.toUpperCase()
+                    -var createdAt = blog.createdAt.toDateString()
+                    h4.card-subtitle.mb-2.text-muted #{createdBy} , #{createdAt}  
+                    .div(style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width:55vw")
+                      h6.card-text
+                      | #{blog.firstPara}
+        else 
+          h2.my-5 No Blogs Written :(
+    // FOOTER AREA START
+    footer
+      section#footer.section-padding
+        .container
+          .row
+            .col-lg-5.col-sm-8.col-md-8
+              .footer-widget.footer-link
+                h4
+                  | We are Excited!
+                  br
+                  |  Are you?
+                p
+                  | Don&apos;t miss this oppurtunity to contact us and brighten the future of the young minds of your
+                  | institution.
+            .col-lg-2.col-sm-4.col-md-4
+              .footer-widget.footer-link
+                h4 About
+                ul
+                  li
+                    a(href='/about') About
+                  li
+                    a(href='/our-team') Team
+                  li
+                    a(href='/blog') Blog
+                  li
+                    a(href='/contact') Contact
+            .col-lg-3.col-sm-6.col-md-6
+              .footer-widget.footer-text
+                h4 Our location
+                p.mail
+                  span Mail:
+                  |  saavishkaara.btt@gmail.com
+                p
+                  span Phone :
+                  | +91 8499896757
+                p
+                  span Location:
+                  |  Shanti nagar, Masab tank, Hyderabad, India
+          .row
+            .col-lg-12.text-center
+              .footer-copy
+                | &copy; 2020 Saavishkaara  . All Rights Reserved.
+      // FOOTER AREA END
+      //
+        Essential Scripts
+        =====================================
+      // Main jQuery
+      script(src='plugins/jquery/jquery.min.js')
+      // Bootstrap 4.3.1
+      script(src='plugins/bootstrap/js/popper.min.js')
+      script(src='plugins/bootstrap/js/bootstrap.min.js')
+      // Woow animtaion
+      script(src='plugins/counterup/wow.min.js')
+      script(src='plugins/counterup/jquery.easing.1.3.js')
+      // Counterup
+      script(src='plugins/counterup/jquery.waypoints.js')
+      script(src='plugins/counterup/jquery.counterup.min.js')
+      // Contact Form
+      script(src='js/custom.js')

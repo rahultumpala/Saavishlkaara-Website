@@ -16,15 +16,15 @@ const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSW
 
 mongoose.connect(DB, {
     // mongoose.connect(DATABASE_LOCAL, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-}).then((con) => {
-    console.log(" DB Connection Successful")
-    console.log(" Waiting for Requests......")
-})
-
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    }).then((con) => {
+        console.log(" DB Connection Successful")
+        console.log(" Waiting for Requests......")
+    })
+    
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`App running on port ${port}`)
