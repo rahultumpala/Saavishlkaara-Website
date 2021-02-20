@@ -156,7 +156,12 @@ exports.addUserToRequest = async (req, res, next) => {
         if (blacklisted) {
             return next();
         } else {
-            const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+            let decoded;
+            try {
+                decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+            } catch (error) {
+                if (error) return next();
+            }
             const currentUser = await UserModel.findById(decoded.id);
             if (currentUser) {
                 req.user = currentUser;

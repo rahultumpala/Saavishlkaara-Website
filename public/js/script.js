@@ -22,6 +22,7 @@ const viewBlogsBtn = document.getElementById("view-blogs")
 const blogEditor = document.getElementById("editor")
 const saveArticleBtn = document.getElementById("saveArticleBtn")
 const publishArticleBtn = document.getElementById("publishArticleBtn")
+const logoutBtn = document.getElementById("logout-btn")
 
 if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
@@ -180,6 +181,29 @@ if (blogEditor) {
         } catch (error) {
             console.log(error);
             showAlert("error", "Error while Saving Article", alertLocation)
+            setTimeout(hideAlert, 3000)
+        }
+    })
+}
+
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", async (e) => {
+        const url = globalUrl + "/api/v1/users/logout"
+        const alertLocation = ".emp-profile"
+        const newUrl = "/"
+        try {
+            const response = await axios({
+                method: "POST",
+                url,
+                withCredentials: true,
+            });
+            if (response.data.status == "success") {
+                window.location.assign(newUrl);
+                showAlert("info", "Logout Successful", alertLocation)
+                // setTimeout(hideAlert, 3000)
+            }
+        } catch (error) {
+            showAlert("error", error.response.data.message, alertLocation)
             setTimeout(hideAlert, 3000)
         }
     })
