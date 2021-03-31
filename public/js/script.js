@@ -1,4 +1,5 @@
 import axios from "axios";
+import { qualFragment } from "./dropdown-options";
 
 export const hideAlert = () => {
     const el = document.querySelector('.myAlert');
@@ -23,6 +24,7 @@ const blogEditor = document.getElementById("editor")
 const saveArticleBtn = document.getElementById("saveArticleBtn")
 const publishArticleBtn = document.getElementById("publishArticleBtn")
 const logoutBtn = document.getElementById("logout-btn")
+const signupForm = document.getElementById("signup-form")
 
 if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
@@ -201,6 +203,44 @@ if (logoutBtn) {
                 window.location.assign(newUrl);
                 showAlert("info", "Logout Successful", alertLocation)
                 // setTimeout(hideAlert, 3000)
+            }
+        } catch (error) {
+            showAlert("error", error.response.data.message, alertLocation)
+            setTimeout(hideAlert, 3000)
+        }
+    })
+}
+
+if (signupForm) {
+    document.getElementById("qualification").appendChild(qualFragment);
+    signupForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const email = document.getElementById("email").value;
+        const phoneNumber = document.getElementById("inputMobileNumber").value;
+        const collegeName = document.getElementById("collegeName").value;
+        const branchName = document.getElementById("branchName").value;
+        const qualification = document.getElementById("qualification").value;
+        const password = document.getElementById("inputPassword").value;
+        const passwordConfirm = document.getElementById("inputPasswordConfirm").value;
+        const userDescription = document.getElementById("userDesc").value;
+        const alertLocation = "#signup-form";
+        const url = globalUrl + "/api/v1/users/signup";
+        const newUrl = "/user-profile"
+        const username = `${firstName} ${lastName}`;
+        const data = { firstName, email, lastName, username, password, passwordConfirm, phoneNumber, collegeName, branchName, qualification, userDescription }
+        try {
+            const response = await axios({
+                method: "POST",
+                url,
+                data,
+                withCredentials: true,
+            });
+            if (response.data.status == "success") {
+                showAlert("info", "Registration Successful", alertLocation)
+                setTimeout(hideAlert, 3000)
+                window.location.assign(newUrl);
             }
         } catch (error) {
             showAlert("error", error.response.data.message, alertLocation)

@@ -107,3 +107,7 @@ exports.viewSingleBlogPage = catchAsync(async (req, res, next) => {
         user: req.user,
     })
 })
+
+exports.getRegisterPage = catchAsync(async (req, res, next) => {
+    res.status(200).render("register-page");
+})

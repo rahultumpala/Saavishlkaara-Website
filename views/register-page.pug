@@ -6,7 +6,7 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - New Blog Post
+        title Saavishkaara Register
         // bootstrap.min css
         link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
@@ -17,10 +17,6 @@ html
         link(rel='stylesheet' href='/plugins/icofont/icofont.css')
         // Main Stylesheet
         link(rel='stylesheet' href='/css/style.css')
-        script(src='/plugins/jquery/jquery.min.js')
-        script(src='/plugins/bootstrap/js/bootstrap.min.js')
-
-
     body(data-spy="scroll" data-target=".fixed-top")
         // MAIN HEADER AREA START
         nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
@@ -47,12 +43,8 @@ html
                             a.nav-link.smoth-scroll(href='/contact') Contact
                         li.nav-item
                             a.nav-link.smoth-scroll(href='/campus-ambassadors') Campus Ambassadors
-                        if user
-                            li.nav-item
-                                a.nav-link.smoth-scroll(href="/user-profile" ) Profile    
-                        else
-                            li.nav-item
-                                a.nav-link.smoth-scroll(href='/auth') Login    
+                        li.nav-item
+                            a.nav-link.smoth-scroll(href='/auth') Login
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
         #page-banner.page-banner-area.page-contact
@@ -61,38 +53,59 @@ html
                 .row.justify-content-center
                     .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
                         .banner-content.content-padding
-                            h1.text-white Write a Blog Post
+                            h1.text-white Join Saavishkaara
+        // MAIN HEADER AREA END
+        // Autyh START
+        section.section-padding
+            .container
+                .row
+                    .col-lg-7.col-sm-12
+                        form#signup-form
+                            h1.h3.mb-3.fw-normal Registration
+                            p All fields are required
+                            label.visually-hidden(for='firstName') First Name
+                            input#firstName.form-control(type='text' placeholder='First Name' required='' autofocus='')
+                            br
+                            label.visually-hidden(for='lastName') Last Name
+                            input#lastName.form-control(type='text' placeholder='Last Name' required='' autofocus='')
+                            br
+                            label.visually-hidden(for='email') Email Address
+                            input#email.form-control(type='email' placeholder='Email' required='' autofocus='')
+                            br
+                            label.visually-hidden(for='inputMobileNumber') Mobile Number
+                            input#inputMobileNumber.form-control(type='text' placeholder='Mobile Number' maxlength=10 required='' autofocus='')
+                            br
+                            label.visually-hidden(for='collegeName') College Name
+                            input#collegeName.form-control(type='text' placeholder='Use Abbreviations (JNTU, DRK etc)' required='' autofocus='')
+                            br
+                            label.visually-hidden(for='branchName') Branch Name
+                            input#branchName.form-control(type='text' placeholder='Mobile Number' required='' autofocus='')
+                            br
+                            label.visually-hidden(for='qualification') Qualification
+                            select#qualification.form-control(type='text' required='' autofocus='')
+                                option(text="Select" value="Select") Select
+                            br
+                            label.visually-hidden(for='inputPassword') Password
+                            input#inputPassword.form-control(type='password' placeholder='Password' required='')
+                            br
+                            label.visually-hidden(for='inputPasswordConfirm') Confirm Password
+                            input#inputPasswordConfirm.form-control(type='password' placeholder='Confirm Password' required='')
+                            br
+                            label.visually-hidden(for='userDesc') User Description
+                            textarea#userDesc.form-control(form="signup-form" placeholder='Write something about yourself' required='' autofocus='')
+                            br
+                            p Note: The website is still in beta stage and some features are not functional yet. We request you to input carefully as editing isn't available yet. Thank you.
+                            //- .checkbox.mb-3
+                            //-     label
+                            //-         input(type='checkbox' value='remember-me')
+                            //-         |  Remember me
+                            br
+                            br
+                            button.w-55.btn.btn-lg.btn-primary Register
 
-        // Blog POST SECTION START
-        section.new-blog-post.mx-5
-            if !editBlog
-                .notes.my-5
-                    h4 Use the editor below to create an amazing blog post :)
-                    p After saving/publishing come back to the top to see an alert of what has happened to your post.
 
-            else 
-                .notes.my-5
-                    h4 Missed Something? Not to worry :)
-                    p Use the editor to modify the blog
-            script. 
-                var blogContent = !{JSON.stringify(blogContent)}
-                editBlog = Boolean("#{editBlog}")
-            //Create the editor container 
-            #editorContainer(class="mx-5 my-3")
-                #editor
-            if !editBlog 
-                button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn") Save Article
-                button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn") Publish
-            else
-                button(class="btn btn-primary mx-5 my-3" id="saveArticleBtn" data-modify="true" data-id=blogId) Save & Modify
-                button(class="btn btn-primary mx-5 my-3" id="publishArticleBtn" data-modify="true" data-id=blogId) Publish Modifications
-                button(class="btn btn-danger mx-5 my-3" id="deleteArticleBtn" data-modify="true" data-id=blogId) Delete Blog
-                br 
-                br 
-                p Note: Using Save & Modify will convert the status of your published post into save only. If you want the changes to reflect in a published post, use "Publish Modifications"
-                p(class="text-danger") Warning : Deleting Blog will permanently delete all the data and recovery is not possible anymore. Proceed with caution.
-        // Blog POST SECTION END
 
+        // CONTACT END
         // FOOTER AREA START
         section#footer.section-padding
             .container
@@ -138,8 +151,10 @@ html
         // Essential Scripts
         // =====================================
         // Main jQuery
+        script(src='/plugins/jquery/jquery.min.js')
         // Bootstrap 4.3.1
         script(src='/plugins/bootstrap/js/popper.min.js')
+        script(src='/plugins/bootstrap/js/bootstrap.min.js')
         // Woow animtaion
         script(src='/plugins/counterup/wow.min.js')
         script(src='/plugins/counterup/jquery.easing.1.3.js')
@@ -147,12 +162,4 @@ html
         script(src='/plugins/counterup/jquery.waypoints.js')
         script(src='/plugins/counterup/jquery.counterup.min.js')
         script(src='/js/custom.js')
-        script(src='/js/editor.js')
-        script(src='https://cdn.jsdelivr.net/npm/@editorjs/header@latest')
-        script(src='https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest')
-        script(src='https://cdn.jsdelivr.net/npm/@editorjs/list@latest')
-        script(src='https://cdn.jsdelivr.net/npm/@editorjs/quote@latest')
-        script(src='https://cdn.jsdelivr.net/npm/@editorjs/embed@latest')
         script(src='/js/bundle.js')
-
-
