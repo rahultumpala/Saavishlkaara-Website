@@ -1,5 +1,5 @@
 const BlogModel = require("../models/blog-model");
-const AppError = require("../utils/AppError")
+const AppError = require("../utils/appError")
 const catchAsync = require("../utils/catchAsync")
 const slugify = require("slugify")
 
