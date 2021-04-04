@@ -6,31 +6,31 @@ html
         meta(name='description' content='seo & digital marketing')
         meta(name='keywords' content='marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company')
         meta(name='author' content='Themefisher.com')
-        title Saavishkaara - Contact
+        title Saavishkaara - Courses
         // bootstrap.min css
-        link(rel='stylesheet' href='/plugins/bootstrap/css/bootstrap.css')
+        link(rel='stylesheet' href='plugins/bootstrap/css/bootstrap.css')
         // Icofont Css
-        link(rel='stylesheet' href='/plugins/fontawesome/css/all.css')
+        link(rel='stylesheet' href='plugins/fontawesome/css/all.css')
         // animate.css
-        link(rel='stylesheet' href='/plugins/animate-css/animate.css')
+        link(rel='stylesheet' href='plugins/animate-css/animate.css')
         // Icofont
-        link(rel='stylesheet' href='/plugins/icofont/icofont.css')
+        link(rel='stylesheet' href='plugins/icofont/icofont.css')
         // Main Stylesheet
-        link(rel='stylesheet' href='/css/style.css')
-    body(data-spy="scroll" data-target=".fixed-top")
-        // MAIN HEADER AREA START
+        link(rel='stylesheet' href='css/style.css')
+    body
+
         nav.navbar.navbar-expand-lg.fixed-top.trans-navigation
             .container
-                img#logo-img.img-fluid.b-logo(src='/images/logo.png' alt='')
+                img#logo-img.img-fluid.b-logo(src='images/logo.png' alt='')
                 a.navbar-brand.d-flex.flex-row(href='/')
-                    img.img-fluid.b-logo(src='/images/logo-text-18.png' alt='')
+                    img.img-fluid.b-logo(src='images/logo-text-18.png' alt='')
                 button.navbar-toggler(type='button' data-toggle='collapse' data-target='#mainNav' aria-controls='mainNav' aria-expanded='false' aria-label='Toggle navigation')
                     span.navbar-toggler-icon
                         i.fa.fa-bars
-                div#mainNav.collapse.navbar-collapse.justify-content-end
+                #mainNav.collapse.navbar-collapse.justify-content-end
                     ul.navbar-nav
                         li.nav-item
-                            a.nav-link.smoth-scroll(href='/') Home
+                            a.nav-link.dropdown-toggle(href='/') Home
                         li.nav-item
                             a.nav-link.smoth-scroll(href='/about') About
                         li.nav-item
@@ -51,52 +51,22 @@ html
                                 a.nav-link.smoth-scroll(href='/auth') Login    
         // MAIN HEADER AREA END
         // MAIN BANNER AREA START
-        #page-banner.page-banner-area.page-contact
+        #page-banner.page-banner-area.page-service
             .overlay.dark-overlay
             .container
                 .row.justify-content-center
                     .col-lg-8.m-auto.text-center.col-sm-12.col-md-12
                         .banner-content.content-padding
-                            h1.text-white Connect with us
-        // MAIN HEADER AREA END
-        // Contact START
-        section.section-padding
-            .container
-                .row
-                    .col-lg-6.col-sm-12.col-md-12
-                        .mb-5
-                            h2.mb-2 Get in touch
+                            h1.text-white  Our Courses
                             p
-                                | Do you want to book a session? Or just want to know more about us? Feel free to reach out. We
-                                | will get back to you as soon as possible.
-                .row
-                    .col-lg-7.col-sm-12
-                        form#contactForm
-                            // form message
-                            .row
-                                .col-12
-                                    .alert.alert-success.contact__msg(style='display: none' role='alert')
-                                        | Your message was sent successfully.
-                            // end message
-                            .row
-                                .col-md-6.form-group
-                                    input.form-control(name='name' id="name" type='text'  placeholder='Name' required='')
-                                .col-md-6.form-group
-                                    input.form-control(name='email' id="email" type='email'  placeholder='Email' required='')
-                                .col-md-12.form-group
-                                    input.form-control(name='subject' id="subject" type='text'  placeholder='Subject' required='')
-                                .col-12.form-group
-                                    textarea.form-control(name='message' id="message" rows='6' placeholder='Message' required='')
-                                .col-12.mt-4
-                                    input.btn.btn-hero.btn-circled(name='submit' type="submit" value='Send Message')
-                    .col-lg-5.pl-4.mt-4.mt-lg-0
-                        h4 Contact Info
-                            p.mb-3 +91 8499896757
-                        h4 Contact Mail
-                            p.mb-3 saavishkaara.btt@gmail.com
-                        h4 Website
-                            p www.saavishkaara.com
-        // CONTACT END
+                                | We provide courses Offline and Online on multiple platforms including but not limited to Udemy
+        // MAIN HEADER AREA END
+        section.courses-section.my-5(style='min-height:20vh;')
+            .container.d-flex.flex-column
+                h1.my-5
+                    | Coming Soon!
+                p
+                    | Our courses are in the works. Come back later for more updates or feel free to reach out using the contact page for offline/online bookings. Thank you for being patient.
         // FOOTER AREA START
         section#footer.section-padding
             .container
@@ -115,13 +85,13 @@ html
                             h4 About
                             ul
                                 li
-                                a(href='/about') About
+                                    a(href='/about') About
                                 li
-                                a(href='/our-team') Team
+                                    a(href='/our-team') Team
                                 li
-                                a(href='/blog') Blog
+                                    a(href='/blog') Blog
                                 li
-                                a(href='/contact') Contact
+                                    a(href='/contact') Contact
                     .col-lg-3.col-sm-6.col-md-6
                         .footer-widget.footer-text
                             h4 Our location
@@ -137,20 +107,22 @@ html
                 .row
                     .col-lg-12.text-center
                         .footer-copy
-                            | &copy; 2020 Saavishkaara . All Rights Reserved.
+                            | &copy; 2020 Saavishkaara  . All Rights Reserved.
         // FOOTER AREA END
-        // Essential Scripts
-        // =====================================
+        //
+            Essential Scripts
+            =====================================
         // Main jQuery
-        script(src='/plugins/jquery/jquery.min.js')
+        script(src='plugins/jquery/jquery.min.js')
         // Bootstrap 4.3.1
-        script(src='/plugins/bootstrap/js/popper.min.js')
-        script(src='/plugins/bootstrap/js/bootstrap.min.js')
+        script(src='plugins/bootstrap/js/popper.min.js')
+        script(src='plugins/bootstrap/js/bootstrap.min.js')
         // Woow animtaion
-        script(src='/plugins/counterup/wow.min.js')
-        script(src='/plugins/counterup/jquery.easing.1.3.js')
+        script(src='plugins/counterup/wow.min.js')
+        script(src='plugins/counterup/jquery.easing.1.3.js')
         // Counterup
-        script(src='/plugins/counterup/jquery.waypoints.js')
-        script(src='/plugins/counterup/jquery.counterup.min.js')
-        script(src='/js/custom.js')
-        script(src='/js/bundle.js')
+        script(src='plugins/counterup/jquery.waypoints.js')
+        script(src='plugins/counterup/jquery.counterup.min.js')
+        // Contact Form
+        script(src='plugins/jquery/contact.js')
+        script(src='js/custom.js')

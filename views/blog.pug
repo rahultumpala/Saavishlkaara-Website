@@ -65,7 +65,7 @@ html
         if !noBlogs
           for blog in blogs
             a(href=`/blog/${blog.slug}`)
-              .card.px-2.py-2.blog-card(data-slug=blog.slug)
+              .card.mb-2.px-2.py-2.blog-card(data-slug=blog.slug)
                 .d-flex.flex-row.justify-content-between.px-2.py-2
                   .side(style="width:100%")
                     h3.card-title #{blog.title} 

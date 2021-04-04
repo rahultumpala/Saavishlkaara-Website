@@ -4,7 +4,9 @@ const path = require("path")
 const blogController = require("./blogController")
 
 exports.getHomepage = catchAsync(async (req, res, next) => {
-    res.status(200).sendFile(path.join(__dirname, '../views/index.html'))
+    res.status(200).render("index", {
+        user: req.user
+    });
 })
 
 exports.getBlogsPage = catchAsync(async (req, res, next) => {
@@ -17,24 +19,34 @@ exports.getBlogsPage = catchAsync(async (req, res, next) => {
 })
 
 exports.getCoursesPage = catchAsync(async (req, res, next) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/courses.html"))
+    res.status(200).render("courses", {
+        user: req.user
+    });
 })
 
 exports.getAboutPage = catchAsync(async (req, res, next) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/about.html"))
-})
+    res.status(200).render("about", {
+        user: req.user
+    });
+});
 
 exports.getTeamPage = catchAsync(async (req, res, next) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/our-team.html"))
+    res.status(200).render("our-team", {
+        user: req.user
+    });
 })
 
 exports.getContactPage = catchAsync(async (req, res, next) => {
-    res.status(200).render("contact");
+    res.status(200).render("contact", {
+        user: req.user,
+    });
 });
 
 exports.getCampusAmbassadorsPage = catchAsync(async (req, res, next) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/campus-ambassadors.html"))
-})
+    res.status(200).render("campus-ambassadors", {
+        user: req.user
+    });
+});
 
 exports.getAuthPage = catchAsync(async (req, res, next) => {
     res.status(200).render("auth-page");
