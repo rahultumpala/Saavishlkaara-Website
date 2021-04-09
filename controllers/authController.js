@@ -16,9 +16,10 @@ const createSendToken = (user, statusCode, res) => {
     currentToken = token;
     const cookieOptions = {
         expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000
+            Date.now() + parseInt(process.env.JWT_COOKIE_EXPIRES_IN) * 60 * 1000
         ),
-        // httpOnly: true,
+        sameSite: true,
+        secure: true
     };
     if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
     res.cookie("jwt", token, cookieOptions);
@@ -78,7 +79,6 @@ exports.logout = async (req, res) => {
             req.headers.authorization.startsWith("Bearer"))
     ) {
         let token;
-        // 0) Check if the token is blacklisted
         if (req.cookies) token = req.cookies.jwt;
         else if (
             req.headers.authorization &&
@@ -94,7 +94,7 @@ exports.logout = async (req, res) => {
     }
     res.cookie("jwt", "loggedout", {
         expires: new Date(Date.now() + 10 * 1000),
-        httpOnly: true,
+        httpOnly: false,
     });
     res.status(200).json({ status: "success" });
 };

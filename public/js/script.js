@@ -1,5 +1,9 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import { qualFragment } from "./dropdown-options";
+
+const bearerToken = localStorage.getItem("token");
+axios.defaults.headers.common["Authorization"] = "Bearer " + bearerToken;
 
 export const hideAlert = () => {
     const el = document.querySelector('.myAlert');
@@ -12,6 +16,8 @@ export const showAlert = (type, msg, id) => {
     document.querySelector(id).insertAdjacentHTML('afterbegin', markup);
     window.setTimeout(hideAlert, 5000);
 };
+
+self.addEventListener
 
 const globalUrl = "http://localhost:5050";
 // const globalUrl = "https://saavishkaara.com"
@@ -42,6 +48,7 @@ if (contactForm) {
                 url,
                 data,
                 withCredentials: true,
+
             });
             if (response.data.status == "success") {
                 showAlert("info", "Message sent successfully", alertLocation)
@@ -73,9 +80,9 @@ if (signinForm) {
                 method: "POST",
                 url,
                 data,
-                withCredentials: true,
             });
             if (response.data.status == "success") {
+                localStorage.setItem("token", response.data.token);
                 showAlert("info", "Login Successful", alertLocation)
                 phoneNumber.value = "";
                 password.value = "";
