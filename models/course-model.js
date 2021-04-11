@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const UserModel = require('./UserModel');
 
 const courseSchema = mongoose.Schema({
     name: {
@@ -8,6 +7,11 @@ const courseSchema = mongoose.Schema({
         trim: true,
         required: [true, "A course must have a valid name"],
     },
+    slug: {
+        type: String,
+        unique: true,
+        trim: true,
+    },
     tutor: {
         type: mongoose.Schema.ObjectId,
         required: [true, "A course must have a valid Tutor"],
@@ -15,6 +19,12 @@ const courseSchema = mongoose.Schema({
     duration: {
         type: String,
         required: [true, "A course must have a valid Duration"],
+    },
+    startDate: {
+        type: Date,
+    },
+    endDate: {
+        type: Date,
     },
     description: {
         type: String,
@@ -38,6 +48,9 @@ const courseSchema = mongoose.Schema({
     tags: {
         type: String,
     },
+    qrPath: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now()
@@ -46,10 +59,20 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: [true, "A course must have a valid Price"],
     },
-    isActive: {
+    isPublic: {
         type: Boolean,
         required: [true, "A course must be specified as active or not for enrolling"]
-    }
+    },
+    regnLink: {
+        type: String,
+        required: [true, "A course must have a valid registration link"],
+    },
 });
 
-module.exports = courseSchema;
+courseSchema.pre("save", async function (next) {
+    this.qrPath = "/qr_images_data/payment_qr.jpg";
+    next();
+});
+
+const Model = new mongoose.model("courses", courseSchema);
+module.exports = Model;

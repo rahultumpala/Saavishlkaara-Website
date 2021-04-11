@@ -2,6 +2,7 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const path = require("path")
 const blogController = require("./blogController")
+const courseController = require("./courseController")
 
 exports.getHomepage = catchAsync(async (req, res, next) => {
     res.status(200).render("index", {
@@ -10,7 +11,7 @@ exports.getHomepage = catchAsync(async (req, res, next) => {
 })
 
 exports.getBlogsPage = catchAsync(async (req, res, next) => {
-    await blogController.getAllPublishedBlogs(res);
+    await blogController.getAllPublishedBlogs(res, next);
     res.status(200).render("blog", {
         user: req.user,
         noBlogs: false,
@@ -19,8 +20,10 @@ exports.getBlogsPage = catchAsync(async (req, res, next) => {
 })
 
 exports.getCoursesPage = catchAsync(async (req, res, next) => {
+    const courses =  await courseController.getCourses();
     res.status(200).render("courses", {
-        user: req.user
+        user: req.user,
+        courses: courses,
     });
 })
 
@@ -122,4 +125,8 @@ exports.viewSingleBlogPage = catchAsync(async (req, res, next) => {
 
 exports.getRegisterPage = catchAsync(async (req, res, next) => {
     res.status(200).render("register-page");
+})
+
+exports.getCreateCoursePage = catchAsync(async (req, res, next) => {
+    res.status(200).render("create-course");
 })

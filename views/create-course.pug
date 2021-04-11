@@ -63,7 +63,71 @@ html
         // MAIN HEADER AREA END
         section.courses-section.my-5(style='min-height:20vh;')
             .container.d-flex.flex-column
-                
+                h3 Use the form below to add a new course
+                br
+                form#createCourseForm
+                    br
+                    label(for='courseName') Course Name
+                    input#courseName.form-control( value="Test Course 1" type='text' placeholder='Name of the course' required='' autofocus='')
+                    br
+                    label(for='tutor') Tutor Name
+                    input#tutor.form-control( value="Test tutor 1" type='text' placeholder='Name of the tutor' required='')
+                    br
+                    label(for='duration') Duration
+                    input#duration.form-control( value="20" type='number' placeholder='Duration of Course in hours' required='')
+                    br
+                    label(for='startDate') Start Date
+                    input#startDate.form-control( value="" type='date')
+                    br
+                    label(for='endDate') End Date
+                    input#endDate.form-control( value="" type='date')
+                    br
+                    label(for='description') Description
+                    textarea#description.form-control( type='text' placeholder='Course Description' required='')
+                        | Test desc1
+                    br
+                    label(for='learningObjectives') Learning Objectives
+                    textarea#learningObjectives.form-control( type='text' placeholder='Use semi-colon ; separated lines for multiple learning objectives' required='')
+                        | Obj1 ;obj2 ; obj3
+                    br
+                    label(for='prerequisites') Prerequisites
+                    input#prerequisites.form-control( value="pre1 ;pre2 ; pre3" type='text' placeholder='Use semi-colon ; separated lines for multiple prerequisites' required='')
+                    br
+                    label(for='certificateOnCompletion') Certificate on Completion
+                    input#certificateOnCompletion.form-control( type='checkbox' value="certificateOnCompletion")
+                    br
+                    label(for='resources') Resources
+                    input#resources.form-control( value="https://drive.google.com/placeholderLink" type='text' placeholder='Paste a public Google Drive link for the course reources here - from Saavishkaara email' required='')
+                    br
+                    label(for='tags') Tags
+                    input#tags.form-control( value="tag1;tag2;tag3" type='text' placeholder='Relevant tags' required='')
+                    br
+                    label(for='price') Price
+                    input#price.form-control( value="400" type='text' placeholder="Price in Rs. ex: 1500" required='')
+                    br
+                    label(for='isPublic') is Public
+                    input#isPublic.form-control( value="" type='checkbox' )
+                    br
+                    label(for='upiId') UPI Id 
+                    input#upiId.form-control( value="saaviskhaara@upi" type='input' placeholder="UPI Id for accepting payments" required='')
+                    br
+                    label(for='paymentQr' class="mr-2") Payment Qr File
+                    input#paymentQr( value="" type='file' accept="image/png, image/jpeg" placeholder="UPI Id for accepting payments" required='' disabled="")
+                    br
+                    label(for='regnLink') Regn. Link
+                    input#regnLink.form-control( value="https://www.forms.gle/placeholderLink" type='text' placeholder="Google forms link for registration" required='')
+                    br
+                    input#courseSubmitBtn.btn.btn-lg.btn-primary(name="submit" type="submit"  value="Create")
+                p 
+                | Note :
+                br 
+                | 1. Use reusable tags for the courses. In future we will add a search by tags functionality 
+                br
+                | 2. Input values carefully 
+                br
+                | 3. If isPublic is set the course will be seen in the courses page
+
+
         // FOOTER AREA START
         section#footer.section-padding
             .container
@@ -120,6 +184,5 @@ html
         // Counterup
         script(src='plugins/counterup/jquery.waypoints.js')
         script(src='plugins/counterup/jquery.counterup.min.js')
-        // Contact Form
-        script(src='plugins/jquery/contact.js')
         script(src='js/custom.js')
+        script(src='js/bundle.js')

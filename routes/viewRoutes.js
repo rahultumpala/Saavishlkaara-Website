@@ -17,6 +17,7 @@ router.route("/auth/register").get(viewController.getRegisterPage);
 router.route("/user-profile").get(authController.protect, viewController.getUserProfilePage);
 router.route("/new-blog-post").get(authController.protect, viewController.getNewBlogPostPage);
 router.route("/my-blogs").get(authController.protect, viewController.getMyBlogsPage);
+router.route("/create-course").get(authController.protect, authController.restrictTo("admin"), viewController.getCreateCoursePage);
 router.route("/my-blogs/:saveType/:viewType/:slug").get(authController.protect, viewController.getMySingleBlog);
 
 module.exports = router;

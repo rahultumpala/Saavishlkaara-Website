@@ -63,10 +63,64 @@ html
         // MAIN HEADER AREA END
         section.courses-section.my-5(style='min-height:20vh;')
             .container.d-flex.flex-column
-                h1.my-5
-                    | Coming Soon!
-                p
-                    | Our courses are in the works. Come back later for more updates or feel free to reach out using the contact page for offline/online bookings. Thank you for being patient.
+                - let len = courses.length;
+                if (len == 0)
+                    h1.my-5
+                        | Coming Soon!
+                    p
+                        | Our courses are in the works. Come back later for more updates or feel free to reach out using the contact page for offline/online bookings. Thank you for being patient.
+                else
+                    h4 Click on the course for more details
+                    for course in courses
+                        .card.shadow.my-4
+                            // Card Header - Accordion
+                            a.d-block.card-header.py-3(href='#collapseCardExample' data-toggle='collapse' role='button' aria-expanded='true' aria-controls='collapseCardExample')
+                                h6.m-0.font-weight-bold.text-primary #{ course.name }
+                            // Card Content - Collapse
+                            #collapseCardExample.collapse
+                                .card-body.d-flex.flex-column
+                                    .card-content.d-flex.flex-row
+                                        h5 Course Name : 
+                                        p.mx-5 #{course.name} 
+                                    .card-content.d-flex.flex-row 
+                                        h5 Duration : 
+                                        p.mx-5 #{course.duration} hours
+                                    .card-content.d-flex.flex-row
+                                        h5 Start Date: 
+                                        p.mx-5 #{course.startDate}
+                                    .card-content.d-flex.flex-row
+                                        h5 End Date: 
+                                        p.mx-5 #{course.endDate}
+                                    .card-content.d-flex.flex-row
+                                        h5 Description : 
+                                        p.mx-5 #{course.description}
+                                    .card-content.d-flex.flex-column
+                                        h5 Learning Objectives
+                                        -let k = course["learningObjectives"].split(";");
+                                        - for(i = 0; i<k.length; i++)
+                                            p.mx-5 
+                                            | #{i}. #{k[i]}
+                                    .card-content.d-flex.flex-row.mt-1
+                                        h5 Certificate on Completion : 
+                                        - let k1 = course["certificateOnCompletion"] == true ? "YES" : "NO"
+                                        p.mx-5=k1
+                                    .card-content.d-flex.flex-column
+                                        h5 Prerequisites : 
+                                        -let k2 = course["prerequisites"].split(";");
+                                        - for(i = 0; i<k2.length; i++)
+                                            p.mx-5 
+                                            | #{i}. #{k2[i]}
+                                    .card-content.d-flex.flex-row.mt-1
+                                        h5 Price : 
+                                        p.mx-5  Rs. #{course.price}
+                                    .card-content.d-flex.flex-row
+                                        h5 Registration Link : 
+                                        a(href="#{course.regnLink}").mx-5 #{course.regnLink}
+                                    .card-content.d-flex.flex-row
+                                        h5 Payment Qr : 
+                                        - let link = "/images/payment_qr.jpg"
+                                        a(href=link).mx-5 Click here for Qr image
+                                    //img(src=course.qrPath, alt="" style="height:40vh;width:80vw;")
         // FOOTER AREA START
         section#footer.section-padding
             .container

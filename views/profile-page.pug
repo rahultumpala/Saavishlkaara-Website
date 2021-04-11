@@ -79,12 +79,13 @@ html
                                 | #{user.firstName +" "+ user.lastName}
                             h4
                                 | #{user.qualification}
-                            p=user
                             p.proile-rating
                                 | Blogs Written : 
                                 span #{user.blogsWritten}
                                 button(id="new-blog" class="btn ml-2 btn-outline-primary") Write Blog
                                 button(id="view-blogs" class="btn ml-2 btn-outline-primary") View Blogs
+                                if user["role"] == "admin"
+                                    button(id="create-course-btn-in-profile-page" class="btn ml-2 btn-outline-primary") Create Course
                             ul#myTab.nav.nav-tabs(role='tablist')
                                 li.nav-item
                                     a#home-tab.nav-link.active(data-toggle='tab' href='#home' role='tab' aria-controls='home' aria-selected='true') About

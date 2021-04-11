@@ -31,6 +31,8 @@ const saveArticleBtn = document.getElementById("saveArticleBtn")
 const publishArticleBtn = document.getElementById("publishArticleBtn")
 const logoutBtn = document.getElementById("logout-btn")
 const signupForm = document.getElementById("signup-form")
+const createCourseForm = document.getElementById("createCourseForm")
+const createCourseBtn = document.getElementById("create-course-btn-in-profile-page")
 
 if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
@@ -254,4 +256,59 @@ if (signupForm) {
             setTimeout(hideAlert, 3000)
         }
     })
+}
+
+if (createCourseBtn) {
+    createCourseBtn.addEventListener("click", function (e) {
+        window.location.assign("/create-course")
+    })
+}
+
+if (createCourseForm) {
+    createCourseForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const alertLocation = "#footer";
+        const url = globalUrl + "/api/v1/courses";
+        const courseName = document.getElementById('courseName')
+        const tutor = document.getElementById('tutor')
+        const duration = document.getElementById('duration')
+        const startDate = document.getElementById('startDate')
+        const endDate = document.getElementById('endDate')
+        const description = document.getElementById('description')
+        const learningObjectives = document.getElementById('learningObjectives')
+        const prerequisites = document.getElementById('prerequisites')
+        const certificateOnCompletion = document.getElementById('certificateOnCompletion')
+        const resources = document.getElementById('resources')
+        const tags = document.getElementById('tags')
+        const price = document.getElementById('price')
+        const isPublic = document.getElementById('isPublic')
+        const upiId = document.getElementById('upiId')
+        const regnLink = document.getElementById('regnLink')
+        const data = {
+            name: courseName.value, tutor: tutor.value, duration: duration.value,
+            startDate: startDate.value, endDate: endDate.value, description: description.value, learningObjectives: learningObjectives.value,
+            prerequisites: prerequisites.value, certificateOnCompletion: certificateOnCompletion.checked,
+            resources: resources.value, tags: tags.value, price: price.value, isPublic: isPublic.checked,
+            upiId: upiId.value, regnLink: regnLink.value
+        }
+        // console.log(data);
+        try {
+            const response = await axios({
+                method: "POST",
+                url,
+                data,
+                withCredentials: true,
+            });
+            if (response.data.status == "success") {
+                showAlert("info", "Course created successfully", alertLocation)
+                setTimeout(hideAlert, 3000)
+            } else {
+                showAlert("error", "Something went wrong", alertLocation)
+                setTimeout(hideAlert, 3000)
+            }
+        } catch (error) {
+            showAlert("error", error.response.data.message, alertLocation)
+            setTimeout(hideAlert, 3000)
+        }
+    });
 }
