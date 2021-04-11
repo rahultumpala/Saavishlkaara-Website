@@ -13,7 +13,7 @@ const courseSchema = mongoose.Schema({
         trim: true,
     },
     tutor: {
-        type: mongoose.Schema.ObjectId,
+        type: String,
         required: [true, "A course must have a valid Tutor"],
     },
     duration: {
