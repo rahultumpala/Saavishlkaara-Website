@@ -71,13 +71,16 @@ html
                         | Our courses are in the works. Come back later for more updates or feel free to reach out using the contact page for offline/online bookings. Thank you for being patient.
                 else
                     h4 Click on the course for more details
-                    for course in courses
+                    each course,index in courses
+                        - let id ="a";
+                        - for( j=0;j < (index+1) ; j++) { id += "a";}
                         .card.shadow.my-4
                             // Card Header - Accordion
-                            a.d-block.card-header.py-3(href='#collapseCardExample' data-toggle='collapse' role='button' aria-expanded='true' aria-controls='collapseCardExample')
+                            - let str = `#${id}`
+                            a.d-block.card-header.py-3(href=str data-toggle='collapse' role='button' aria-expanded='false' aria-controls=id)
                                 h6.m-0.font-weight-bold.text-primary #{ course.name }
                             // Card Content - Collapse
-                            #collapseCardExample.collapse
+                            div(id=id class="collapse")
                                 .card-body.d-flex.flex-column
                                     .card-content.d-flex.flex-row
                                         h5 Course Name : 
@@ -95,11 +98,17 @@ html
                                         h5 Description : 
                                         p.mx-5 #{course.description}
                                     .card-content.d-flex.flex-column
+                                        h5 Tutors
+                                        -let k0 = course["tutor"].split(";");
+                                        - for(i = 1; i<k0.length+1; i++)
+                                            p.mx-5 
+                                            | #{i}. #{k0[i-1]}
+                                    .card-content.d-flex.flex-column
                                         h5 Learning Objectives
                                         -let k = course["learningObjectives"].split(";");
-                                        - for(i = 0; i<k.length; i++)
+                                        - for(i = 1; i<k.length+1; i++)
                                             p.mx-5 
-                                            | #{i}. #{k[i]}
+                                            | #{i}. #{k[i-1]}
                                     .card-content.d-flex.flex-row.mt-1
                                         h5 Certificate on Completion : 
                                         - let k1 = course["certificateOnCompletion"] == true ? "YES" : "NO"
@@ -107,9 +116,9 @@ html
                                     .card-content.d-flex.flex-column
                                         h5 Prerequisites : 
                                         -let k2 = course["prerequisites"].split(";");
-                                        - for(i = 0; i<k2.length; i++)
+                                        - for(i = 1; i<k2.length+1; i++)
                                             p.mx-5 
-                                            | #{i}. #{k2[i]}
+                                            | #{i}. #{k2[i-1]}
                                     .card-content.d-flex.flex-row.mt-1
                                         h5 Price : 
                                         p.mx-5  Rs. #{course.price}
@@ -120,7 +129,14 @@ html
                                         h5 Payment Qr : 
                                         - let link = "/images/payment_qr.jpg"
                                         a(href=link).mx-5 Click here for Qr image
-                                    //img(src=course.qrPath, alt="" style="height:40vh;width:80vw;")
+                    h5 Process of Registration
+                    p 
+                    | Pay the course fees by either scanning the given QR or to the number: 9493272638 (The name will be either SV Jewellers/ Avusla Ramchandra depending on the payment mode you select). 
+                    | Note down the transaction code and amount paid.
+                    | Fill out the registration form given in here by choosing your course correctly along with your details and also the transaction number to submit it.
+                    | Within 24 hours of your submission you will get a confirmation mail from our side. if you have any issues with the process or later on, don't hesitate to call at 7901382208(adithya) / 9440752295(bhanu) / 8464892964(pavan) or you can also mail at contactus@saavishkaara.com / saavishkaara.btt@gmail.com. You can also contact us through this website via the contact form.
+                    | Remember we will only take 15 students max per course. We also have a group discount. If you wanna join in group, call first at 7901382208(adithya).
+
         // FOOTER AREA START
         section#footer.section-padding
             .container
