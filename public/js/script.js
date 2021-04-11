@@ -19,8 +19,8 @@ export const showAlert = (type, msg, id) => {
 
 self.addEventListener
 
-const globalUrl = "http://localhost:5050";
-// const globalUrl = "https://saavishkaara.com"
+// const globalUrl = "http://localhost:5050";
+const globalUrl = "https://saavishkaara.com"
 
 const contactForm = document.getElementById("contactForm");
 const signinForm = document.getElementById("signin-form");

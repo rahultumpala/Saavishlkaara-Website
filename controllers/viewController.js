@@ -20,7 +20,7 @@ exports.getBlogsPage = catchAsync(async (req, res, next) => {
 })
 
 exports.getCoursesPage = catchAsync(async (req, res, next) => {
-    const courses =  await courseController.getCourses();
+    const courses = await courseController.getCourses();
     res.status(200).render("courses", {
         user: req.user,
         courses: courses,
@@ -128,5 +128,7 @@ exports.getRegisterPage = catchAsync(async (req, res, next) => {
 })
 
 exports.getCreateCoursePage = catchAsync(async (req, res, next) => {
-    res.status(200).render("create-course");
+    res.status(200).render("create-course", {
+        user: req.user,
+    });
 })
