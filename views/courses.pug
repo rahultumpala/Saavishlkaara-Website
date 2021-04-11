@@ -115,7 +115,7 @@ html
                                         p.mx-5  Rs. #{course.price}
                                     .card-content.d-flex.flex-row
                                         h5 Registration Link : 
-                                        a(href="#{course.regnLink}").mx-5 #{course.regnLink}
+                                        a(href=course.regnLink rel="noopener noreferrer" target="_blank").mx-5 #{course.regnLink}
                                     .card-content.d-flex.flex-row
                                         h5 Payment Qr : 
                                         - let link = "/images/payment_qr.jpg"
