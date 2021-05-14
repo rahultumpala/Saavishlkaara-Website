@@ -25,13 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 //  Middlewares
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//  });
-// to set security headers
+
 app.use(helmet());
 
 // for cookies
@@ -45,7 +39,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // logging requests using morgan
 if (process.env.NODE_ENV === "development"
-    // || process.env.NODE_ENV === "production"
 ) {
     app.use(morgan("dev"));
 }
@@ -66,7 +59,7 @@ app.use(hpp({ whitelist: [] }));
 const tryingOut = process.env.tryingOut;
 var origin;
 if (process.env.NODE_ENV === "development" && tryingOut === "true") origin = `https://www.saavishkaara.com`;
-else if (process.env.NODE_ENV === "development") origin = `localhost:${process.env.PORT}`;
+else if (process.env.NODE_ENV === "development") origin = `http://localhost:${process.env.PORT}`;
 else origin = `https://www.saavishkaara.com`;
 
 app.options(cors());
