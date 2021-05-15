@@ -19,7 +19,7 @@ export const showAlert = (type, msg, id) => {
 
 self.addEventListener
 
-const globalUrl = "https://www.saavishkaara.com"
+const globalUrl = "http://localhost:5050"
 
 const contactForm = document.getElementById("contactForm");
 const signinForm = document.getElementById("signin-form");

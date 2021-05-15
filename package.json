@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "watch.js": "parcel watch ./public/js/script.js  --out-dir ./public/js --out-file ./public/js/bundle.js --public-url /public/js",
-    "build.js": "parcel build ./public/js/script.js  --out-dir ./public/js --out-file ./public/js/bundle.js --public-url /public/js",
+    "watch.js": "parcel watch ./public/js/script.js  --dist-dir ./public/js --target default --public-url /public/js",
+    "build.js": "parcel build ./public/js/script.js  --dist-dir ./public/js --target default --public-url /public/js",
     "start:prod:win": "set NODE_ENV=production && nodemon server.js",
     "start:prod:linux": "NODE_ENV=production nodemon server.js",
     "start:dev:win": "set NODE_ENV=development && nodemon server.js",
     "start:dev:linux": "NODE_ENV=development nodemon server.js"
+  },
+  "default": "./public/js/bundle.js",
+  "targets": {
+    "default": {}
   },
   "keywords": [],
   "author": "",
@@ -39,12 +43,17 @@
     "nodemon": "^2.0.2",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0",
+    "parcel": "^2.0.0-beta.2",
     "sharp": "^0.28.1",
     "slugify": "^1.4.6",
     "validator": "^13.0.0",
     "xss-clean": "^0.1.1"
   },
   "browserslist": [
-    "last 1 Chrome version"
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
   ]
 }

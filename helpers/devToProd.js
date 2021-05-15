@@ -1,7 +1,7 @@
 var fs = require('fs');
 const { exec } = require("child_process");
 
-console.log("Converting To DEVELOPMENT Mode")
+console.log("Converting To PRODUCTION Mode")
 
 fs.readFile('config.env', 'utf-8', function (err, data) {
     console.log("Making changes in Config.env file");
@@ -18,7 +18,7 @@ fs.readFile('config.env', 'utf-8', function (err, data) {
 fs.readFile('./public/js/script.js', 'utf-8', function (err, data) {
     console.log("Making changes in /public/js/script.js file");
     if (err) throw err;
-    var newValue = data.replace("https://saavishkaara.com", "http://localhost:5050");
+    var newValue = data.replace(/http:\/\/localhost:5050/g, "https://saavishkaara.com");
 
     fs.writeFile('./public/js/script.js', newValue, 'utf-8', function (err, data) {
         if (err) throw err;

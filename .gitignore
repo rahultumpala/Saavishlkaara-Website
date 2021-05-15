@@ -2,5 +2,6 @@ node_modules
 package-lock.json
 *.env
 .cache
-bundle.js
-bundle.map.js
+public/js/bundle.js
+public/js/bundle.js.map
+.parcel-cache
